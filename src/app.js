@@ -1,23 +1,25 @@
+import __polyfill from "babel-polyfill";
 import isotropy from "isotropy";
 import Schema from "./data/schema";
-import Workspace from "./react/Workspace";
+import Workspace from "./react/workspace";
 
-const moduleConfig = {
+const uiModule = {
   routes: [
-    { url: `/${url}/:id`, method: "GET", component: MyComponent }
+    { url: `/`, method: "GET", component: Workspace }
   ]
 };
 
 const apps = [
-  { type: "graphql", schema: MySchema },
-  { type: "react", module: moduleConfig, path: "/" }
+  { type: "graphql", schema: Schema },
+  { type: "react", module: uiModule, path: "/" }
 ];
 
 const options = {
   dir: __dirname,
   graphql: {
     graphiql: true
-  }
+  },
+  port: 8080
 };
 
-const { server } = await isotropy(apps, options);
+isotropy(apps, options).then((server) => console.log(`Listening on ${options.port}`));

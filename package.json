@@ -1,6 +1,14 @@
 {
   "author": "Fora Project<hackers@justfora.com>",
+  "scripts": {
+    "start": "./build.sh && node dist/app.js"
+  },
   "dependencies": {
+    "isotropy": "*",
+    "react": "*",
+    "react-relay": "*",
+    "graphql": "*",
+    "graphql-relay": "*"
   },
   "devDependencies": {
     "babel-polyfill": "*",

@@ -10,15 +10,27 @@ const uiModule = {
 };
 
 const apps = [
-  { type: "graphql", schema: Schema },
-  { type: "react", module: uiModule, path: "/" }
+  {
+    type: "react",
+    module: uiModule,
+    path: "/",
+    toHtml: (html) => {
+      return(
+        `
+        <html>
+          <body>
+            <div id="isotropy-container">
+            ${html}
+            </div>
+          </body>
+        </html>
+      `);
+    }
+  }
 ];
 
 const options = {
   dir: __dirname,
-  graphql: {
-    graphiql: true
-  },
   port: 8080
 };
 

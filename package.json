@@ -6,9 +6,9 @@
   "dependencies": {
     "isotropy": "*",
     "react": "*",
-    "react-relay": "*",
-    "graphql": "*",
-    "graphql-relay": "*"
+    "react-split-pane": "*",
+    "react-treeview": "*",
+    "react-ace": "*"
   },
   "devDependencies": {
     "babel-polyfill": "*",

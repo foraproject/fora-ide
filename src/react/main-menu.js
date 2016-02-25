@@ -3,9 +3,7 @@ import React from "react";
 class MenuItem extends React.Component {
   render() {
     return(
-      <ul>
-        <TreeView />
-      </ul>
+      <li>Hello</li>
     );
   }
 }

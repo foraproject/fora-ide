@@ -1,17 +1,11 @@
 import __polyfill from "babel-polyfill";
 import isotropy from "isotropy";
-import Workspace from "./react/workspace";
-
-const uiModule = {
-  routes: [
-    { url: `/`, method: "GET", component: Workspace }
-  ]
-};
+import reactRoutes from "./react-routes";
 
 const apps = [
   {
     type: "react",
-    module: uiModule,
+    reactRoutes,
     path: "/",
     toHtml: (html) => {
       console.log("yoyoy")
@@ -30,7 +24,12 @@ const apps = [
 
 const options = {
   dir: __dirname,
-  port: 8080
+  port: 8080,
+  onError: (req, res, e) => {
+    res.end(e.toString());
+  }
 };
 
-isotropy(apps, options).then((server) => console.log(`Listening on ${options.port}`));
+isotropy(apps, options)
+  .then((server) => console.log(`Listening on ${options.port}`))
+  .catch((e) => console.log(e));

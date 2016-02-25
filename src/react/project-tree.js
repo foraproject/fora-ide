@@ -5,7 +5,8 @@ class ProjectTree extends React.Component {
     return(
       <div>
         <TreeView />
-      </div>);
+      </div>
+    );
   }
 }
 

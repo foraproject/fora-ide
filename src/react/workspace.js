@@ -8,7 +8,7 @@ class Workspace extends React.Component {
         <SplitPane split="vertical" minSize="50">
           <ProjectTree />
           <Editor />
-        <SplitPane>
+        </SplitPane>
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import __polyfill from "babel-polyfill";
 import isotropy from "isotropy";
-import Schema from "./data/schema";
 import Workspace from "./react/workspace";
 
 const uiModule = {
@@ -15,8 +14,8 @@ const apps = [
     module: uiModule,
     path: "/",
     toHtml: (html) => {
-      return(
-        `
+      console.log("yoyoy")
+      return(`
         <html>
           <body>
             <div id="isotropy-container">

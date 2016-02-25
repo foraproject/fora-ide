@@ -5,7 +5,8 @@ class MenuItem extends React.Component {
     return(
       <ul>
         <TreeView />
-      </ul>);
+      </ul>
+    );
   }
 }
 
@@ -14,7 +15,8 @@ class MainMenu extends React.Component {
     return(
       <ul>
         <MenuItem />
-      </ul>);
+      </ul>
+    );
   }
 }
 

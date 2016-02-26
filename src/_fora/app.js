@@ -1,11 +1,11 @@
 import __polyfill from "babel-polyfill";
 import isotropy from "isotropy";
-import reactRoutes from "./react-routes";
+import reactRoutes from "../react-routes";
 
 const apps = [
   {
     type: "react",
-    reactRoutes,
+    routes: reactRoutes,
     path: "/",
     toHtml: (html) => {
       console.log("yoyoy")

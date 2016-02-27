@@ -1,5 +1,5 @@
 import React from "react";
-import TreeView from "react-tree-view";
+import TreeView from "react-treeview";
 
 class ProjectTree extends React.Component {
   render() {

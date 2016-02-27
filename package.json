@@ -1,14 +1,19 @@
 {
   "author": "Fora Project<hackers@justfora.com>",
   "scripts": {
-    "start": "./build.sh && node dist/_fora/app.js"
+    "start": "./build.sh && node dist/app.js"
   },
   "dependencies": {
     "isotropy": "*",
+    "isotropy-in-dom": "*",
     "react": "*",
     "react-split-pane": "*",
     "react-treeview": "*",
-    "react-ace": "*"
+    "react-ace": "*",
+    "isotropy-plugin-react": "*",
+    "isotropy-plugin-static": "*",
+    "isotropy-plugin-webapp": "*",
+    "isotropy-adapter-react-in-dom": "*"
   },
   "devDependencies": {
     "json-loader": "*",

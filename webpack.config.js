@@ -5,6 +5,7 @@ module.exports = {
     path: __dirname + "/dist/static",
     filename: "bundle.js"
   },
+  devtool: 'source-map',
   resolve: {
     alias: {
       "isotropy": "isotropy-in-dom",
@@ -13,7 +14,13 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.json$/,   loader: "json-loader" }
+      { test: /\.json$/, loader: "json-loader" },
+    ],
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: "source-map-loader"
+      }
     ]
   }
 }

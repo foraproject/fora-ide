@@ -23,6 +23,8 @@
     "babel-preset-stage-2": "*",
     "babel-plugin-transform-class-properties": "*",
     "babel-relay-plugin-loader": "*",
+    "source-map-loader": "*",
+    "babel-loader": "*",
     "mocha": "*",
     "should": "*"
   }

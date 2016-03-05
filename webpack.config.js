@@ -9,6 +9,7 @@ module.exports = {
   resolve: {
     alias: {
       "isotropy": "isotropy-in-dom",
+      "http": "isotropy-http-in-browser",
       "isotropy-adapter-react": "isotropy-adapter-react-in-dom"
     }
   },

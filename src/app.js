@@ -13,9 +13,11 @@ const template = (html) => `
 <html>
   <head>
     <script src="/static/bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/fonts.css"></link>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css"></link>
   </head>
   <body>
-    <div class="">
+    <div id="isotropy-container">
     ${html}
     </div>
   </body>

@@ -1,0 +1,46 @@
+{
+  "contents": [
+    {
+      "name": "src",
+      "type": "dir",
+      "contents": [
+        {
+          "name": "data",
+          "type": "dir",
+          "contents": [
+            {
+              "name": "cities.json",
+              "type": "file"
+            },
+            {
+              "name": "countries.json",
+              "type": "file"
+            },
+            {
+              "name": "fares.json",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "code",
+          "type": "dir",
+          "contents": [
+            {
+              "name": "print.js",
+              "type": "file"
+            },
+            {
+              "name": "app.js",
+              "type": "file"
+            },
+            {
+              "name": "setup.js",
+              "type": "file"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

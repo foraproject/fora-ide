@@ -1,11 +1,11 @@
 import __polyfill from "babel-polyfill";
 import isotropy from "isotropy";
 import reactPlugin from "isotropy-plugin-react";
-import Workspace from "./react/workspace";
+import WorkspaceContainer from "./react/containers/workspace-container";
 
 function fn() {
   const routes = [
-    { url: `/`, method: "GET", component: Workspace }
+    { url: `/`, method: "GET", component: WorkspaceContainer }
   ];
 
   const apps = [

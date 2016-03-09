@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadProject } from '../actions/project-actions';
-import { getTotal, getCartProducts } from '../reducers';
 import Workspace from '../components/workspace';
 
 class WorkspaceContainer extends Component {

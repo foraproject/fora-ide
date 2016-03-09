@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import projects from "./projects";
+import project from "./project";
+import activeFile from "./active-file";
 
 export default combineReducers({
-  projects
+  project,
+  activeFile
 });

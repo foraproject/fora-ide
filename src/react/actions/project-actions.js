@@ -1,10 +1,12 @@
-export const LOAD_PROJECT = 'LOAD_PROJECT';
+export const BEGIN_GET_PROJECT = 'BEGIN_GET_PROJECT';
+export const GET_PROJECT = 'GET_PROJECT';
 
-function loadProject(name) {
+import { getProject as API_getProject } from "../api/projects";
+
+export function getProject(name) {
   return (dispatch) => {
-    return dispatch({
-      type: LOAD_PROJECT,
-      name
-    });
-  }
+    dispatch({ type: BEGIN_GET_PROJECT, name });
+    API_getProject(name)
+      .then((project) => dispatch({ type: "GET_PROJECT", project }));
+  };
 }

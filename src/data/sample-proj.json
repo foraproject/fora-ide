@@ -1,4 +1,6 @@
 {
+  "name": "my-nodejam-sample",
+  "type": "dir",
   "contents": [
     {
       "name": "src",

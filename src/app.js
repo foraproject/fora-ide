@@ -12,9 +12,11 @@ const plugins = [
 const template = (html) => `
 <html>
   <head>
+    <script src="/static/vendor/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/bundle.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/fonts.css"></link>
     <link rel="stylesheet" type="text/css" href="/static/css/base.css"></link>
+    <link rel="stylesheet" type="text/css" href="/static/vendor/font-awesome/css/font-awesome.min.css"></link>
   </head>
   <body>
     <div id="isotropy-container">
@@ -38,7 +40,7 @@ const webapp = {
 const staticSite = {
   type: "static",
   path: "/static",
-  dir: "static",
+  dir: "../static",
   onError: (req, res, e) => {
     e.handled = true;
     res.end(e.message);

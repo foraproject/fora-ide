@@ -1,17 +1,22 @@
-import __polyfill from "babel-polyfill";
+ import __polyfill from "babel-polyfill";
 import isotropy from "isotropy";
 import reactPlugin from "isotropy-plugin-react";
+import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 import WorkspaceContainer from "./react/containers/workspace-container";
-import configureStore from './store/configureStore'
+import configureStore from './react/store/configure-store';
+import { getProject } from "./react/actions/project-actions";
 
-const store = configureStore()
+const store = configureStore({ project: {}, activeFile: "function() {}" });
+getProject("my-nodejam-sample")(store.dispatch);
 
 class App extends Component {
   render() {
-    <WorkspaceContainer store={store}>
-      <App />
-    </WorkspaceContainer>
+    return (
+      <Provider store={store}>
+        <WorkspaceContainer />
+      </Provider>
+    );
   }
 }
 
@@ -28,7 +33,7 @@ function fn() {
     }
   ];
 
-  isotropy(apps, [reactPlugin], {}).catch((e) => console.log(e.stack));
+  isotropy(apps, [reactPlugin], {}).catch((e) => console.log(e.stack));  
 }
 
 if (document.readyState !== 'loading'){

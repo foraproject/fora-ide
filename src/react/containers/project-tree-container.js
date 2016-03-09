@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadProject } from '../actions/project-actions';
-import { getTotal, getCartProducts } from '../reducers';
 import ProjectTree from '../components/project-tree';
 
 class ProjectTreeContainer extends Component {
   render() {
-    const { projects } = this.props;
-
     return (
       <ProjectTree
-        projects={projects}
+        project={this.props.project}
         onCheckoutClicked={() => this.props.checkout()} />
     )
   }
@@ -18,17 +14,17 @@ class ProjectTreeContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    projects: getProjects(state)
+    project: state.project
   }
 }
 
 export default connect(
   mapStateToProps,
   {
-    deleteItem,
-    newDirectory,
-    newFile,
-    copyItem,
-    rename
+    // deleteItem,
+    // newDirectory,
+    // newFile,
+    // copyItem,
+    // rename
   }
 )(ProjectTreeContainer);

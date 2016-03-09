@@ -2,7 +2,7 @@ module.exports = {
   context: __dirname,
   entry: "./dist/app-browser.js",
   output: {
-    path: __dirname + "/dist/static",
+    path: __dirname + "/static",
     filename: "bundle.js"
   },
   devtool: 'source-map',

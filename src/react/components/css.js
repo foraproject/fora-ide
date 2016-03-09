@@ -1,7 +1,8 @@
 export default {
   palette: {
-    dark: "#333",
-    textOnDark: "#ddd"
+    bg: "#272822",
+    lightBg: "#555",
+    fg: "#ddd"
   },
   fontSize: {
     medium: "12px"

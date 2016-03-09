@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadProject } from '../actions/project-actions';
-import { getTotal, getCartProducts } from '../reducers';
-import Workspace from '../components/workspace';
+import Editor from '../components/editor';
 
-class WorkspaceContainer extends Component {
+class EditorContainer extends Component {
   render() {
-    const { projects } = this.props;
-
     return (
-      <Workspace
-        projects={projects}
-        onCheckoutClicked={() => this.props.checkout()} />
+      <Editor />
     )
   }
 }
 
+
 const mapStateToProps = (state) => {
-  return {
-    projects: getProjects(state)
-  }
+  return {};
 }
 
 export default connect(
   mapStateToProps,
-  { loadProject }
-)(WorkspaceContainer);
+  {
+    // loadProject
+  }
+)(EditorContainer);

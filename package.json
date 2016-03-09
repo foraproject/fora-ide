@@ -8,8 +8,6 @@
     "isotropy-in-dom": "*",
     "react": "*",
     "react-split-pane": "*",
-    "react-treeview": "*",
-    "react-ace": "*",
     "redux": "*",
     "react-redux": "*",
     "redux-thunk": "*",

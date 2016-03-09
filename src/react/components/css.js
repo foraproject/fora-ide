@@ -1,8 +1,8 @@
 export default {
   palette: {
-    bg: "#272822",
-    lightBg: "#555",
-    fg: "#ddd"
+    bg: "#f6f6f6",
+    lightBg: "#dddddd",
+    fg: "#333"
   },
   fontSize: {
     medium: "12px"

@@ -60,8 +60,8 @@ class TreeNode extends React.Component {
 class ProjectTree extends React.Component {
   render() {
     return(
-      <div style={{ fontSize: "13px", color: css.palette.fg, height: "100%" }}>
-        <ul style={{ margin: "12px 0 0 0", padding: "0" }}>
+      <div style={{ fontSize: "13px", color: css.palette.fg }}>
+        <ul style={{ margin: "4px 0 0 0", padding: "0" }}>
           <TreeNode node={this.props.project} />
         </ul>
       </div>

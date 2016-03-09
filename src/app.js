@@ -12,11 +12,11 @@ const plugins = [
 const template = (html) => `
 <html>
   <head>
-    <script src="/static/vendor/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/vendor/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/bundle.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/fonts.css"></link>
     <link rel="stylesheet" type="text/css" href="/static/css/base.css"></link>
-    <link rel="stylesheet" type="text/css" href="/static/vendor/font-awesome/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="/vendor/css/fonts.css"></link>
+    <link rel="stylesheet" type="text/css" href="/vendor/font-awesome/css/font-awesome.min.css"></link>
   </head>
   <body>
     <div id="isotropy-container">
@@ -37,17 +37,27 @@ const webapp = {
   toHtml: template
 };
 
-const staticSite = {
+const staticDir = {
   type: "static",
   path: "/static",
-  dir: "../static",
+  dir: "static",
   onError: (req, res, e) => {
     e.handled = true;
     res.end(e.message);
   }
 };
 
-const apps = [webapp, staticSite];
+const vendorDir = {
+  type: "static",
+  path: "/vendor",
+  dir: "../vendor",
+  onError: (req, res, e) => {
+    e.handled = true;
+    res.end(e.message);
+  }
+};
+
+const apps = [webapp, staticDir, vendorDir];
 
 const options = {
   dir: __dirname,

@@ -15,7 +15,7 @@ class Editor extends React.Component {
     const activeFile = _activeFile.length ? _activeFile[0] : null;
     return(
       <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-        <TabBar items={this.props.files.map(p => { return { title: p.name.split('/').slice(-1)[0], fullTitle: p.name, key: p.name } })} activeTab={this.props.actveFile}/>
+        <TabBar items={this.props.files.map(p => { return { title: p.name.split('/').slice(-1)[0], fullTitle: p.name, key: p.name } })} activeTab={this.props.activeFile}/>
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
           {this.props.files.map(f => <CodeEditor key={"editor-" + f.name} visible={f.name === this.props.activeFile} source={activeFile.contents} />)}
         </div>

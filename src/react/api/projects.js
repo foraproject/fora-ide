@@ -35,10 +35,10 @@ class MainMenu extends React.Component {
 export default MainMenu;
 `;
 
-export async function getFiles(files, projectUrl) {
+export async function getFiles(files, project) {
   return [
     {
-      filename: files[0],
+      name: files[0],
       contents: example
     }
   ];

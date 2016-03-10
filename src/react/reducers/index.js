@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import project from "./project";
-import activeFile from "./active-file";
+import editor from "./editor";
 
 export default combineReducers({
   project,
-  activeFile
+  editor
 });

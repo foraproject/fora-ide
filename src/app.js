@@ -15,7 +15,7 @@ const template = (html) => `
     <script src="/vendor/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/bundle.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/base.css"></link>
-    <link rel="stylesheet" type="text/css" href="/vendor/css/fonts.css"></link>
+    <link rel="stylesheet" type="text/css" href="/static/css/fonts.css"></link>
     <link rel="stylesheet" type="text/css" href="/vendor/font-awesome/css/font-awesome.min.css"></link>
   </head>
   <body>

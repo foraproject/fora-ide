@@ -1,8 +1,10 @@
+var path = require("path");
+
 module.exports = {
   context: __dirname,
   entry: "./dist/app-browser.js",
   output: {
-    path: __dirname + "dist/static",
+    path: path.join(__dirname, "dist/static"),
     filename: "bundle.js"
   },
   devtool: 'source-map',

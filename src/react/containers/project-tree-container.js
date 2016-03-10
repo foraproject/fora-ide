@@ -5,9 +5,7 @@ import ProjectTree from '../components/project-tree';
 class ProjectTreeContainer extends Component {
   render() {
     return (
-      <ProjectTree
-        project={this.props.project}
-        onCheckoutClicked={() => this.props.checkout()} />
+      <ProjectTree project={this.props.project} />
     )
   }
 }

@@ -5,19 +5,18 @@ import Editor from '../components/editor';
 class EditorContainer extends Component {
   render() {
     return (
-      <Editor />
+      <Editor files={this.props.editor.files} activeFile={this.props.editor.activeFile} />
     )
   }
 }
 
-
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    editor: state.editor
+  }
 }
 
 export default connect(
   mapStateToProps,
-  {
-    // loadProject
-  }
+  {}
 )(EditorContainer);

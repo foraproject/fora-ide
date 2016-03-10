@@ -3,7 +3,7 @@ import css from "./css";
 
 class TreeNode extends React.Component {
 
-  getLIStyle(node) {
+  getStyle(node) {
     const listStyle = "none";
     const padding = "4px 0 4px 16px";
     const margin = "0";
@@ -29,6 +29,13 @@ class TreeNode extends React.Component {
     }
   }
 
+  onClick(event) {
+    if (this.props.node.type === "file") {
+      this.props.onFileClick(this.props.parents.concat(this.props.node.name).join("/"));
+    }
+    event.stopPropagation();
+  }
+
   render() {
     const node = this.props.node;
     const name = node.name;
@@ -37,16 +44,16 @@ class TreeNode extends React.Component {
 
     if (node.collapsed) {
       return (
-        <li key={key} style={this.getStyle(node)}><span>{name}</span></li>
+        <li key={key} onClick={this.onClick.bind(this)} style={this.getStyle(node)}><span>{name}</span></li>
       );
     } else {
       return (
-        <li key={key} style={this.getLIStyle(node)}>
+        <li key={key} onClick={this.onClick.bind(this)} style={this.getStyle(node)}>
           <p style={{ height: "20px", padding: "0", margin: "0" }}>{this.getIcon(node)}{name}</p>
           { node.contents ?
             (
               <ul style={{ margin: 0, padding: 0 }}>
-                {node.contents.map(node => <TreeNode key={`${key}-${node.name}-tr`} parents={parents.concat(name)} node={node} />)}
+                {node.contents.map(node => <TreeNode key={`${key}-${node.name}-tr`} parents={parents.concat(name)} node={node} onFileClick={this.props.onFileClick} />)}
               </ul>
             ):
             []
@@ -62,7 +69,7 @@ class ProjectTree extends React.Component {
     return(
       <div style={{ fontSize: "13px", color: css.palette.fg }}>
         <ul style={{ margin: "4px 0 0 0", padding: "0" }}>
-          <TreeNode node={this.props.project} />
+          <TreeNode onFileClick={this.props.onFileClick} node={this.props.project} />
         </ul>
       </div>
     );

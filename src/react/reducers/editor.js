@@ -1,8 +1,8 @@
 function openFile(state, action) {
-  const files = (!state.files.some(f => f.path === action.file.path)) ?
+  const files = (!state.files.some(f => f.name === action.file.name)) ?
     state.files.concat(action.file) :
     state.files;
-  return Object.assign({}, state, { files, activeFile: action.file.path });
+  return Object.assign({}, state, { files, activeFile: action.file.name });
 }
 
 export default function(state = {}, action) {

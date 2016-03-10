@@ -9,7 +9,7 @@ class CodeEditor extends React.Component {
   componentDidMount() {
     const editor = ace.edit(this.editorId);
     editor.setTheme("ace/theme/dreamweaver");
-    editor.getSession().setMode("ace/mode/javascript");
+    editor.getSession().setMode("ace/mode/jsx");
     document.getElementById(this.editorId).style.fontSize='14px';
     editor.setValue(this.props.source, -1);
   }

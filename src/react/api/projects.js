@@ -4,8 +4,7 @@ export async function getProject(url) {
   return sampleProj;
 }
 
-const example = `
-import React from "react";
+const example = `import React from "react";
 import css from "./css";
 
 class MenuItem extends React.Component {
@@ -39,7 +38,7 @@ export async function getFiles(files, project) {
   return [
     {
       name: files[0],
-      contents: example
+      contents: `/*${Date.now()}*/` + "\r\n" + example
     }
   ];
 }

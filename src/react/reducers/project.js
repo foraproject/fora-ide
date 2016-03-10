@@ -8,7 +8,7 @@ function getFiles(state, action) {
   const cloned = JSON.parse(JSON.stringify(state));
 
   for (let file in action.files) {
-    const current = getFileByPath(file.path, cloned);
+    const current = getFileByPath(file.name, cloned);
     if (current) {
       current.contents = file.contents;
     }

@@ -31,7 +31,7 @@ class TreeNode extends React.Component {
 
   onClick(event) {
     if (this.props.node.type === "file") {
-      this.props.onFileClick(this.props.parents.concat(this.props.node.name).join("/"));
+      this.props.onOpenFile(this.props.parents.concat(this.props.node.name).join("/"));
     }
     event.stopPropagation();
   }
@@ -53,7 +53,7 @@ class TreeNode extends React.Component {
           { node.contents ?
             (
               <ul style={{ margin: 0, padding: 0 }}>
-                {node.contents.map(node => <TreeNode key={`${key}-${node.name}-tr`} parents={parents.concat(name)} node={node} onFileClick={this.props.onFileClick} />)}
+                {node.contents.map(node => <TreeNode key={`${key}-${node.name}-tr`} parents={parents.concat(name)} node={node} onOpenFile={this.props.onOpenFile} />)}
               </ul>
             ):
             []
@@ -69,7 +69,7 @@ class ProjectTree extends React.Component {
     return(
       <div style={{ fontSize: "13px", color: css.palette.fg }}>
         <ul style={{ margin: "4px 0 0 0", padding: "0" }}>
-          <TreeNode onFileClick={this.props.onFileClick} node={this.props.project} />
+          <TreeNode onOpenFile={this.props.onOpenFile} node={this.props.project} />
         </ul>
       </div>
     );

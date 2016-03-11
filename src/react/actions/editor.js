@@ -21,3 +21,7 @@ export function openFile(filePath) {
     }
   }
 }
+
+export function closeFile(file) {
+  return (dispatch) => dispatch({ type: "CLOSE_FILE", file });
+}

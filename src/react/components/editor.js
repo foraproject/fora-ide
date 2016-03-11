@@ -5,19 +5,16 @@ import CodeEditor from "./code-editor";
 class Editor extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(arguments)
-    return nextProps.activeFile !== this.props.activeFile;
+    return nextProps.files.length !== this.props.files.length || nextProps.active !== this.props.active;
   }
 
   render() {
-    //console.log(this.props)
-    const _activeFile = this.props.files.filter(f => f.name === this.props.activeFile);
-    const activeFile = _activeFile.length ? _activeFile[0] : null;
+    const tabItems = this.props.files.map(p => { return { title: p.name.split('/').slice(-1)[0], fullTitle: p.name, key: p.name } });
     return(
       <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-        <TabBar items={this.props.files.map(p => { return { title: p.name.split('/').slice(-1)[0], fullTitle: p.name, key: p.name } })} activeTab={this.props.activeFile}/>
+        <TabBar onOpenItem={this.props.onOpenFile} onCloseItem={this.props.onCloseFile} items={tabItems} active={this.props.active}/>
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-          {this.props.files.map(f => <CodeEditor key={"editor-" + f.name} visible={f.name === this.props.activeFile} source={activeFile.contents} />)}
+          {this.props.files.map(f => <CodeEditor key={"editor-" + f.name} visible={f.name === this.props.active} source={f.contents} />)}
         </div>
       </div>
     );

@@ -1,9 +1,10 @@
 import React from "react";
 
-import Menu from "./main-menu";
+import MainMenu from "./main-menu";
 import SplitPane from "react-split-pane";
 import ProjectTreeContainer from "../containers/project-tree-container";
 import EditorContainer from "../containers/editor-container";
+import ContextMenuContainer from "../containers/context-menu-container";
 import css from "./css";
 
 const cssFix = `
@@ -18,7 +19,7 @@ class Workspace extends React.Component {
         <style dangerouslySetInnerHTML={{ __html: cssFix }}></style>
         <div style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
           <div style={{ flex: "0"}}>
-            <Menu></Menu>
+            <MainMenu />
           </div>
           <div style={{ flex: "1", flexDirection: "column", display: "flex" }}>
             <SplitPane id="editor-container" split="vertical" minSize="200" defaultSize="240">
@@ -27,6 +28,7 @@ class Workspace extends React.Component {
             </SplitPane>
           </div>
         </div>
+        <ContextMenuContainer />
       </div>
     );
   }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Editor from '../components/editor';
-import { closeFile, openFile } from "../actions/editor.js";
+import * as actions from "../actions/editor.js";
+import * as menuActions from "../actions/context-menu.js";
 
 class EditorContainer extends Component {
   render() {
     return (
       <Editor files={this.props.activeFiles.files} lastUsed={this.props.activeFiles.lastUsed}
-        active={this.props.activeFiles.active} onOpenFile={this.props.onOpenFile} onCloseFile={this.props.onCloseFile} />
+        active={this.props.activeFiles.active} openFile={this.props.openFile} closeFile={this.props.closeFile} showContextMenu={this.props.showContextMenu} />
     )
   }
 }
@@ -20,11 +21,20 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onOpenFile: (filePath) => {
-      dispatch(openFile(filePath))
+    openFile: (filePath) => {
+      dispatch(actions.openFile(filePath))
     },
-    onCloseFile: (filePath) => {
-      dispatch(closeFile(filePath))
+    closeFile: (filePath) => {
+      dispatch(actions.closeFile(filePath))
+    },
+    closeAllFiles: () => {
+      dispatch(actions.closeAllFiles())
+    },
+    closeAllExcept: (filePath) => {
+      dispatch(actions.closeAllExcept(filePath))
+    },
+    showContextMenu: (items) => {
+      dispatch(menuActions.openContextMenu(items))
     }
   }
 }

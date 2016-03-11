@@ -8,7 +8,7 @@ import configureStore from './react/store/configure-store';
 import { getProject, getProjectFiles } from "./react/actions/project";
 import { openFile } from "./react/actions/editor";
 
-const store = configureStore({ project: {}, activeFiles: { files: [], lastUsed: [] }});
+const store = configureStore({ project: {}, activeFiles: { files: [], lastUsed: [] }, contextMenu: { items: [] } });
 getProject("my-nodejam-sample")(store.dispatch, store.getState)
   .then(() => getProjectFiles()(store.dispatch, store.getState))
   .then(() => openFile("src/code/app.js")(store.dispatch, store.getState))

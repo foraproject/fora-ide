@@ -7,9 +7,12 @@ function openFile(state, action) {
 }
 
 function closeFile(state, action) {
+  //If we closed the currently active file, set the previous file as active.
+  const active = (state.active === action.file) ?
+    state.files[state.files.findIndex(f => f.name === action.file) - 1].name :
+    state.active;
   const files = state.files.filter(f => f.name !== action.file);
   const lastUsed = state.lastUsed.filter(f => f !== action.file);
-  const active = lastUsed.slice(-1)[0];
   return Object.assign({}, state, { files, lastUsed, active });
 }
 

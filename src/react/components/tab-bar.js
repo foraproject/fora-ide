@@ -20,18 +20,28 @@ class Tab extends React.Component {
   }
 
   openItem(event) {
-    this.props.onOpenItem(this.props.itemKey);
-    event.stopPropagation();
+    this.props.openItem(this.props.itemKey);
+    if (event) { event.stopPropagation(); }
   }
 
   closeItem(event) {
-    this.props.onCloseItem(this.props.itemKey);
-    event.stopPropagation();
+    this.props.closeItem(this.props.itemKey);
+    if (event) { event.stopPropagation(); }
+  }
+
+  closeAllItems(event) {
+    this.props.closeItem(this.props.itemKey);
+    if (event) { event.stopPropagation(); }
+  }
+
+  showContextMenu(event) {
+    console.log(event.pageX);
+    this.props.showContextMenu(this.props.itemKey, event)
   }
 
   render() {
     return(
-      <li onClick={this.openItem.bind(this)} key={this.props.key} style={this.getStyle()}>{this.props.title}
+      <li onClick={this.openItem.bind(this)} onContextMenu={this.showContextMenu.bind(this)} key={this.props.key} style={this.getStyle()}>{this.props.title}
         <i onClick={this.closeItem.bind(this)} style={{ padding: "0 8px 0 4px", float: "right" }} className="fa fa-times"></i>
       </li>
     );
@@ -45,8 +55,8 @@ class TabBar extends React.Component {
         (<ul style={{ fontSize: css.fontSize.medium, textAlign: "center", background: css.palette.lighterBg, height: "32px", padding: 0, margin: 0 }}>
           {
             this.props.items.map(
-              i => <Tab active={i.key === this.props.active} onOpenItem={this.props.onOpenItem}
-                onCloseItem={this.props.onCloseItem} itemKey={i.key} key={"tab-item-" + i.key} title={i.title} />
+              i => <Tab active={i.key === this.props.active} openItem={this.props.openItem} showContextMenu={this.props.showContextMenu}
+                closeItem={this.props.closeItem} itemKey={i.key} key={"tab-item-" + i.key} title={i.title} />
             )
           }
         </ul>) : null

@@ -6,7 +6,7 @@ import { openFile } from "../actions/editor.js";
 class ProjectTreeContainer extends Component {
   render() {
     return (
-      <ProjectTree project={this.props.project} onOpenFile={this.props.onOpenFile} />
+      <ProjectTree project={this.props.project} openFile={this.props.openFile} />
     )
   }
 }
@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onOpenFile: (filePath) => {
+    openFile: (filePath) => {
       dispatch(openFile(filePath))
     }
   }

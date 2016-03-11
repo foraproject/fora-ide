@@ -35,8 +35,8 @@ class Tab extends React.Component {
   }
 
   showContextMenu(event) {
-    console.log(event.pageX);
-    this.props.showContextMenu(this.props.itemKey, event)
+    this.props.showContextMenu(this.props.itemKey, event);
+    event.preventDefault();
   }
 
   render() {

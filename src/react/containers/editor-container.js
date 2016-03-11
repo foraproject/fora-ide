@@ -33,8 +33,9 @@ const mapDispatchToProps = (dispatch) => {
     closeAllExcept: (filePath) => {
       dispatch(actions.closeAllExcept(filePath))
     },
-    showContextMenu: (items) => {
-      dispatch(menuActions.openContextMenu(items))
+    showContextMenu: (items, position) => {
+      console.log(position)
+      dispatch(menuActions.openContextMenu(items, position))
     }
   }
 }

@@ -15,7 +15,7 @@ class Editor extends React.Component {
       { title: "Close All Tabs", handler: () => self.closeAllItems(event) },
       { title: "Close Other", handler: () => self.closeAllExcept(itemKey) },
       { title: "Save File", handler: () => self.saveFile(itemKey) }
-    ], { x: event.clientX, y: event.clientY });
+    ], { left: event.pageX, top: event.pageY });
   }
 
   render() {

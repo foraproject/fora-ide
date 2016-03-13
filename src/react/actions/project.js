@@ -19,10 +19,10 @@ export function getProject(project) {
 }
 
 export function getProjectFiles() {
-  const fn = (list, parents) => {
+  const getFilesInTree = (list, parents) => {
     const results = list.map(
       i => (typeof i.type === "dir") ?
-        fn(i.contents, parents.concat(i)) :
+        getFilesInTree(i.contents, parents.concat(i)) :
         parents.map(p => p.name).concat(i.name).join("/")
     );
     return [].concat.apply([], results); //flatten
@@ -33,7 +33,7 @@ export function getProjectFiles() {
 
     return new Promise((resolve, reject) => {
       const project = getState().project;
-      const files = fn(project.contents, [project]);
+      const files = getFilesInTree(project.contents, [project]);
       API_getFiles(files, project).then(files => {
         dispatch({ type: "GET_PROJECT_FILES", files });
         resolve(files);

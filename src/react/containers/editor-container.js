@@ -7,8 +7,7 @@ import * as menuActions from "../actions/context-menu.js";
 class EditorContainer extends Component {
   render() {
     return (
-      <Editor files={this.props.activeFiles.files} lastUsed={this.props.activeFiles.lastUsed}
-        active={this.props.activeFiles.active} openFile={this.props.openFile} closeFile={this.props.closeFile} showContextMenu={this.props.showContextMenu} />
+      <Editor {...this.props} {...this.props.activeFiles} />
     )
   }
 }
@@ -34,7 +33,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.closeAllExcept(filePath))
     },
     showContextMenu: (items, position) => {
-      console.log(position)
       dispatch(menuActions.openContextMenu(items, position))
     }
   }

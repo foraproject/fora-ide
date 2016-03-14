@@ -9,7 +9,8 @@ class Tab extends React.Component {
       float: "left",
       height: "32px",
       paddingTop: "8px",
-      marginRight: "1px"
+      marginRight: "1px",
+      cursor: "pointer"
     }
     if (this.props.active) {
       cssProps.backgroundColor = css.palette.bgHighlight;
@@ -29,11 +30,6 @@ class Tab extends React.Component {
     if (event) { event.stopPropagation(); }
   }
 
-  closeAllItems(event) {
-    this.props.closeItem(this.props.itemKey);
-    if (event) { event.stopPropagation(); }
-  }
-
   showContextMenu(event) {
     this.props.showContextMenu(this.props.itemKey, event);
     event.preventDefault();
@@ -49,10 +45,21 @@ class Tab extends React.Component {
 }
 
 class TabBar extends React.Component {
+  getStyle() {
+    return {
+      fontSize: css.fontSize.medium,
+      textAlign: "center",
+      background: css.palette.xlightBg,
+      height: "32px",
+      padding: 0,
+      margin: 0
+    }
+  }
+
   render() {
     return(
       this.props.items && this.props.items.length ?
-        (<ul style={{ fontSize: css.fontSize.medium, textAlign: "center", background: css.palette.lighterBg, height: "32px", padding: 0, margin: 0 }}>
+        (<ul style={this.getStyle()}>
           {
             this.props.items.map(
               i => <Tab active={i.key === this.props.active} openItem={this.props.openItem} showContextMenu={this.props.showContextMenu}

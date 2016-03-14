@@ -3,7 +3,7 @@ import css from "./css";
 
 class TreeNode extends React.Component {
 
-  getStyle(node) {
+  getStyle() {
     const listStyle = "none";
     const padding = "4px 0 4px 16px";
     const margin = "0";
@@ -14,6 +14,25 @@ class TreeNode extends React.Component {
       margin,
       cursor
     };
+  }
+
+  getTextStyle() {
+    const style = {
+      height: "20px",
+      padding: "4px 0 0 0",
+      margin: "0"
+    };
+
+    if (
+      (this.props.project.selected && this.props.parents) &&
+      (this.props.node.name === this.props.project.selected.name) &&
+      (this.props.parents.length === this.props.project.selected.parents.length) &&
+      (this.props.parents.every((p, i) => p === this.props.project.selected.parents[i]))
+    ) {
+      style.background = css.palette.lightBg;
+    }
+
+    return style;
   }
 
   getKey(name, parents) {
@@ -30,10 +49,32 @@ class TreeNode extends React.Component {
   }
 
   onClick(event) {
+    this.props.selectProjectItem(this.props.node.name, this.props.parents);
+
     if (this.props.node.type === "file") {
       this.props.openFile(this.props.parents.concat(this.props.node.name).join("/"));
     }
     event.stopPropagation();
+  }
+
+  showContextMenu(event) {
+    this.props.selectProjectItem(this.props.node.name, this.props.parents);
+
+    this.props.showContextMenu([
+      { title: "New File",  handler: () => self.props.newFile() },
+      { title: "New Folder", handler: () => self.props.newDir() },
+      {},
+      { title: "Rename",  handler: () => self.props.renameDirOrFile() },
+      { title: "Duplicate", handler: () => self.props.duplicateDirOrFile() },
+      { title: "Delete", handler: () => self.props.deleteDirOrFile() },
+      { title: "Copy", handler: () => self.props.copyDirOrFile() },
+      { title: "Paste", handler: () => self.props.pasteDirOrFile() },
+      { title: "Cut", handler: () => self.props.cutDirOrFile() },
+      {},
+      { title: "Copy File Path",  handler: () => self.props.copyPath() }
+    ], { left: event.pageX, top: event.pageY });
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   render() {
@@ -44,20 +85,32 @@ class TreeNode extends React.Component {
 
     if (node.collapsed) {
       return (
-        <li key={key} onClick={this.onClick.bind(this)} style={this.getStyle(node)}><span>{name}</span></li>
+        <li key={key} onClick={this.onClick.bind(this)} style={this.getStyle()}><span>{name}</span></li>
       );
     } else {
       return (
-        <li key={key} onClick={this.onClick.bind(this)} style={this.getStyle(node)}>
-          <p style={{ height: "20px", padding: "0", margin: "0" }}>{this.getIcon(node)}{name}</p>
+        <li key={key} onContextMenu={this.showContextMenu.bind(this)}
+          onClick={this.onClick.bind(this)} style={this.getStyle()}>
+
+          <p style={this.getTextStyle()}>{this.getIcon(node)}{name}</p>
           { node.contents ?
             (
               <ul style={{ margin: 0, padding: 0 }}>
-                {node.contents.map(node => <TreeNode key={`${key}-${node.name}-tr`} parents={parents.concat(name)} node={node} openFile={this.props.openFile} />)}
+                {
+                  node.contents.map(
+                    node => <TreeNode
+                      {...this.props}
+                      key={`${key}-${node.name}-tr`}
+                      parents={parents.concat(name)}
+                      node={node}
+                    />
+                  )
+                }
               </ul>
             ):
             []
           }
+
         </li>
       );
     }
@@ -69,7 +122,7 @@ class ProjectTree extends React.Component {
     return(
       <div style={{ fontSize: "13px", color: css.palette.fg }}>
         <ul style={{ margin: "4px 0 0 0", padding: "0" }}>
-          <TreeNode openFile={this.props.openFile} node={this.props.project} />
+          <TreeNode {...this.props} node={this.props.project} />
         </ul>
       </div>
     );

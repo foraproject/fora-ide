@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ProjectTree from '../components/project-tree';
-import { openFile } from "../actions/editor.js";
+import * as editorActions from "../actions/editor.js";
+import * as projectActions from "../actions/project.js";
+import * as menuActions from "../actions/context-menu.js";
 
 class ProjectTreeContainer extends Component {
   render() {
     return (
-      <ProjectTree project={this.props.project} openFile={this.props.openFile} />
+      <ProjectTree {...this.props} />
     )
   }
 }
@@ -20,7 +22,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     openFile: (filePath) => {
-      dispatch(openFile(filePath))
+      dispatch(editorActions.openFile(filePath))
+    },
+    showContextMenu: (items, position) => {
+      dispatch(menuActions.openContextMenu(items, position))
+    },
+    selectProjectItem: (name, parents) => {
+      dispatch(projectActions.selectProjectItem(name, parents))
     }
   }
 }

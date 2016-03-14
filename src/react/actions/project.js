@@ -1,13 +1,8 @@
-export const BEGIN_GET_PROJECT = 'BEGIN_GET_PROJECT';
-export const GET_PROJECT = 'GET_PROJECT';
-export const BEGIN_GET_PROJECT_FILES = 'BEGIN_GET_PROJECT_FILES';
-export const GET_PROJECT_FILES = 'GET_PROJECT_FILES';
-
 import { getProject as API_getProject, getFiles as API_getFiles } from "../api/projects";
 
 export function getProject(project) {
   return (dispatch) => {
-    dispatch({ type: BEGIN_GET_PROJECT, project });
+    dispatch({ type: "BEGIN_GET_PROJECT", project });
     return new Promise((resolve, reject) => {
       API_getProject(name)
         .then((project) => {
@@ -29,7 +24,7 @@ export function getProjectFiles() {
   };
 
   return (dispatch, getState) => {
-    dispatch({ type: BEGIN_GET_PROJECT_FILES });
+    dispatch({ type: "BEGIN_GET_PROJECT_FILES" });
 
     return new Promise((resolve, reject) => {
       const project = getState().project;
@@ -40,4 +35,16 @@ export function getProjectFiles() {
       });
     });
   }
+}
+
+export function selectProjectItem(name, parents) {
+  return (dispatch) => {
+    dispatch({ type: "SELECT_PROJECT_ITEM", name, parents });
+  };
+}
+
+export function unselectProjectItem() {
+  return (dispatch) => {
+    dispatch({ type: "UNSELECT_PROJECT_ITEM" });
+  };
 }

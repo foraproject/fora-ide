@@ -16,12 +16,26 @@ function getFiles(state, action) {
   return cloned;
 }
 
+function selectProjectItem(state, action) {
+  return Object.assign({}, state, { selected: { name: action.name, parents: action.parents } });
+}
+
+function unselectProjectItem(state, action) {
+  return Object.assign({}, state, { selected: {} });
+}
+
 export default function(state = {}, action) {
   switch (action.type) {
     case "GET_PROJECT":
       return getProject(state, action);
     case "GET_FILES": {
       return getFiles(state, action);
+    }
+    case "SELECT_PROJECT_ITEM": {
+      return selectProjectItem(state, action);
+    }
+    case "UNSELECT_PROJECT_ITEM": {
+      return unselectProjectItem(state, action);
     }
     default:
       return state;

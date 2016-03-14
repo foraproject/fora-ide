@@ -10,7 +10,6 @@ class MenuItem extends React.Component {
       borderBottom: `1px solid ${css.palette.xlightBg}`,
       color: css.palette.fg,
       listStyle: "none",
-      padding: "12px",
       margin: 0,
       cursor: "pointer"
     }
@@ -24,6 +23,27 @@ class MenuItem extends React.Component {
   render() {
     return(
       <li onClick={this.onClick.bind(this)} style={this.getStyle()}>{this.props.title}</li>
+    );
+  }
+}
+
+class Separator extends React.Component {
+  getStyle() {
+    return {
+      width: "152px",
+      padding: 0,
+      margin: 0,
+      background: css.palette.bg,
+      borderBottom: `6px solid ${css.palette.lightBg}`,
+      color: css.palette.fg,
+      listStyle: "none",
+      cursor: "pointer"
+    }
+  }
+
+  render() {
+    return(
+      <li style={this.getStyle()}></li>
     );
   }
 }
@@ -63,8 +83,15 @@ class Menu extends React.Component {
         <div onClick={this.props.closeContextMenu} style={this.getOverlayStyle()}>
         </div>
         <ul style={this.getMenuStyle()}>
-          { this.props.items.map(i => <MenuItem key={`context-menu-${i.title.split(" ").join("-").toLowerCase()}`}
-            closeContextMenu={this.props.closeContextMenu} title={i.title} onClick={i.handler} />)}
+          {
+            this.props.items.map(
+              (i, j) =>
+                (i.title) ?
+                  <MenuItem key={`context-menu-${i.title.split(" ").join("-").toLowerCase()}`}
+                    closeContextMenu={this.props.closeContextMenu} title={i.title} onClick={i.handler} /> :
+                  <Separator />
+              )
+          }
         </ul>
       </div>
     );

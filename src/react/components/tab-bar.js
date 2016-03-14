@@ -5,12 +5,13 @@ class Tab extends React.Component {
 
   getStyle() {
     const cssProps = {
-      width: "96px",
+      width: this.props.title.length < 10 ? "96px" : "132px",
       float: "left",
       height: "32px",
       paddingTop: "8px",
       marginRight: "1px",
-      cursor: "pointer"
+      cursor: "pointer",
+      overflow: hidden
     }
     if (this.props.active) {
       cssProps.backgroundColor = css.palette.bgHighlight;

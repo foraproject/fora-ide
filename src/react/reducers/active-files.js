@@ -6,6 +6,7 @@ function openFile(state, action) {
   return Object.assign({}, state, { files, lastUsed, active: action.file.name });
 }
 
+
 function closeFile(state, action) {
   //If we closed the currently active file, set the previous file as active.
   let active;
@@ -17,9 +18,23 @@ function closeFile(state, action) {
     active = state.active;
   }
   const files = state.files.filter(f => f.name !== action.file);
-  const lastUsed = state.lastUsed.filter(f => f !== action.file);
+  const lastUsed = state.lastUsed.filter(f => f !== action.file.name);
   return Object.assign({}, state, { files, lastUsed, active });
 }
+
+
+function closeAllFiles(state) {
+  return { files: [], lastUsed: [], active: null };
+}
+
+
+function closeOtherFiles(state, action) {
+  const files = state.files.filter(f => f.name === action.file);
+  const lastUsed = [action.file];
+  const active = action.file;
+  return Object.assign({}, state, { files, lastUsed, active });
+}
+
 
 export default function(state = {}, action) {
   switch (action.type) {
@@ -27,6 +42,10 @@ export default function(state = {}, action) {
       return openFile(state, action);
     case "CLOSE_FILE":
       return closeFile(state, action);
+    case "CLOSE_ALL_FILES":
+      return closeAllFiles(state, action);
+    case "CLOSE_OTHER_FILES":
+      return closeOtherFiles(state, action);
     default:
       return state;
   }

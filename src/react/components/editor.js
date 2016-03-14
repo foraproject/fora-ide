@@ -12,8 +12,8 @@ class Editor extends React.Component {
     const self = this;
     this.props.showContextMenu([
       { title: "Close Tab",  handler: () => self.props.closeFile(itemKey) },
-      { title: "Close All Tabs", handler: () => self.props.closeAllFiles(event) },
-      { title: "Close Other Tabs", handler: () => self.props.closeAllExcept(itemKey) },
+      { title: "Close All Tabs", handler: () => self.props.closeAllFiles() },
+      { title: "Close Other Tabs", handler: () => self.props.closeOtherFiles(itemKey) },
       { title: "Save File", handler: () => self.props.saveFile(itemKey) }
     ], { left: event.pageX, top: event.pageY });
   }

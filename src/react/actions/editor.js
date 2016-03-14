@@ -25,3 +25,11 @@ export function openFile(filePath) {
 export function closeFile(file) {
   return (dispatch) => dispatch({ type: "CLOSE_FILE", file });
 }
+
+export function closeAllFiles() {
+  return (dispatch) => dispatch({ type: "CLOSE_ALL_FILES" });
+}
+
+export function closeOtherFiles(file) {
+  return (dispatch) => dispatch({ type: "CLOSE_OTHER_FILES", file });
+}

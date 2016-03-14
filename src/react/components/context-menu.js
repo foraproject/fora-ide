@@ -60,7 +60,7 @@ class Menu extends React.Component {
   render() {
     return(
       <div>
-        <div onClick={this.props.onHide} style={this.getOverlayStyle()}>
+        <div onClick={this.props.closeContextMenu} style={this.getOverlayStyle()}>
         </div>
         <ul style={this.getMenuStyle()}>
           { this.props.items.map(i => <MenuItem key={`context-menu-${i.title.split(" ").join("-").toLowerCase()}`}

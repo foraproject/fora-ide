@@ -11,7 +11,7 @@ class Tab extends React.Component {
       paddingTop: "8px",
       marginRight: "1px",
       cursor: "pointer",
-      overflow: hidden
+      overflow: "hidden"
     }
     if (this.props.active) {
       cssProps.backgroundColor = css.palette.bgHighlight;

@@ -48,3 +48,15 @@ export function unselectProjectItem() {
     dispatch({ type: "UNSELECT_PROJECT_ITEM" });
   };
 }
+
+export function expandDir(name, parents) {
+  return (dispatch) => {
+    dispatch({ type: "EXPAND_DIR", name, parents });
+  };
+}
+
+export function collapseDir(name, parents) {
+  return (dispatch) => {
+    dispatch({ type: "COLLAPSE_DIR", name, parents });
+  };
+}

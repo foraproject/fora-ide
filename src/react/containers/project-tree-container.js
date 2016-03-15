@@ -29,6 +29,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectProjectItem: (name, parents) => {
       dispatch(projectActions.selectProjectItem(name, parents))
+    },
+    expandDir: (name, parents) => {
+      dispatch(projectActions.expandDir(name, parents));
+    },
+    collapseDir: (name, parents) => {
+      dispatch(projectActions.collapseDir(name, parents));
     }
   }
 }

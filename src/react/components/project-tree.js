@@ -52,8 +52,8 @@ class TreeNode extends React.Component {
     switch(node.type) {
       case "dir":
         return node.collapsed ?
-        <i onClick={this.props.expandDir} style={{ paddingRight: "4px" }} className="fa fa-caret-right"></i> :
-        <i onClick={this.props.collapseDir} style={{ paddingRight: "4px" }} className="fa fa-caret-down"></i>;
+        <i style={{ paddingRight: "4px" }} className="fa fa-caret-right"></i> :
+        <i style={{ paddingRight: "4px" }} className="fa fa-caret-down"></i>;
       default:
         return null;
     }
@@ -62,8 +62,18 @@ class TreeNode extends React.Component {
   onClick(event) {
     this.props.selectProjectItem(this.props.node.name, this.props.parents);
 
-    if (this.props.node.type === "file") {
-      this.props.openFile(this.props.parents.concat(this.props.node.name).join("/"));
+    switch (this.props.node.type) {
+      case "file": {
+        this.props.openFile(this.props.parents.concat(this.props.node.name).join("/"));
+        break;
+      }
+      case "dir": {
+        if (this.props.node.collapsed) {
+          this.props.expandDir(this.props.node.name, this.props.parents);
+        } else {
+          this.props.collapseDir(this.props.node.name, this.props.parents);
+        }
+      }
     }
     event.stopPropagation();
   }
@@ -96,7 +106,9 @@ class TreeNode extends React.Component {
 
     if (node.collapsed) {
       return (
-        <li key={key} onClick={this.onClick.bind(this)} style={this.getStyle()}><span>{name}</span></li>
+        <li key={key} onClick={this.onClick.bind(this)} style={this.getStyle()}>
+          <p style={this.getTextStyle()}>{this.getExpandCollapseIcon(node)}{this.getIcon(node)}{name}</p>
+        </li>
       );
     } else {
       return (

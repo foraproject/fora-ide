@@ -5,7 +5,7 @@ class TreeNode extends React.Component {
 
   getStyle() {
     const listStyle = "none";
-    const padding = "4px 0 4px 16px";
+    const padding = "0 0 0 16px";
     const margin = "0";
     const cursor = "default";
     return {
@@ -45,6 +45,17 @@ class TreeNode extends React.Component {
         return <i style={{ paddingRight: "4px" }} className="fa fa-folder"></i>;
       default:
         return <i style={{ paddingRight: "4px" }} className="fa fa-file-code-o"></i>;
+    }
+  }
+
+  getExpandCollapseIcon(node) {
+    switch(node.type) {
+      case "dir":
+        return node.collapsed ?
+        <i onClick={this.props.expandDir} style={{ paddingRight: "4px" }} className="fa fa-caret-right"></i> :
+        <i onClick={this.props.collapseDir} style={{ paddingRight: "4px" }} className="fa fa-caret-down"></i>;
+      default:
+        return null;
     }
   }
 
@@ -92,19 +103,12 @@ class TreeNode extends React.Component {
         <li key={key} onContextMenu={this.showContextMenu.bind(this)}
           onClick={this.onClick.bind(this)} style={this.getStyle()}>
 
-          <p style={this.getTextStyle()}>{this.getIcon(node)}{name}</p>
+          <p style={this.getTextStyle()}>{this.getExpandCollapseIcon(node)}{this.getIcon(node)}{name}</p>
           { node.contents ?
             (
               <ul style={{ margin: 0, padding: 0 }}>
                 {
-                  node.contents.map(
-                    node => <TreeNode
-                      {...this.props}
-                      key={`${key}-${node.name}-tr`}
-                      parents={parents.concat(name)}
-                      node={node}
-                    />
-                  )
+                  node.contents.map( node => <TreeNode {...this.props} key={`${key}-${node.name}-tr`} parents={parents.concat(name)} node={node} /> )
                 }
               </ul>
             ):

@@ -21,6 +21,7 @@ class MenuItem extends React.Component {
   }
 
   render() {
+    let self = this;
     return(
       <li onClick={this.onClick.bind(this)} style={this.getStyle()}>{this.props.title}</li>
     );
@@ -89,7 +90,7 @@ class Menu extends React.Component {
                 (i.title) ?
                   <MenuItem key={`context-menu-${i.title.split(" ").join("-").toLowerCase()}`}
                     closeContextMenu={this.props.closeContextMenu} title={i.title} onClick={i.handler} /> :
-                  <Separator />
+                  <Separator key={`context-menu-separator-${j}`} />
               )
           }
         </ul>

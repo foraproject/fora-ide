@@ -15,11 +15,11 @@ class CodeEditor extends React.Component {
   }
 
   getRandomId() {
-    return Math.random().toString(36).substring(12);
+    return "r-" +  Math.random().toString().substring(3) + Math.random().toString().substring(3);
   }
 
   getStyle() {
-    return { flex: 1, display: "flex", flexDirection: "column", width: "100%", display: (this.props.visible ? "block" : "none") };
+    return { width: "100%", height: "100%", display: (this.props.visible ? "block" : "none") };
   }
 
   render() {

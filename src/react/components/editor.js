@@ -1,4 +1,5 @@
 import React from "react";
+import SplitPane from "react-split-pane";
 import TabBar from "./tab-bar";
 import CodeEditor from "./code-editor";
 
@@ -21,11 +22,14 @@ class Editor extends React.Component {
   render() {
     const tabItems = this.props.files.map(p => { return { title: p.name.split('/').slice(-1)[0], fullTitle: p.name, key: p.name } });
     return(
-      <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-        <TabBar openItem={this.props.openFile} closeItem={this.props.closeFile} active={this.props.active} showContextMenu={this.showTabContextMenu.bind(this)} items={tabItems} />
-        <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-          {this.props.files.map(f => <CodeEditor key={"editor-" + f.name} visible={f.name === this.props.active} source={f.contents} />)}
-        </div>
+      <div>
+        <SplitPane id="editor-container" split="horizontal" defaultSize="32">
+          <TabBar openItem={this.props.openFile} closeItem={this.props.closeFile} active={this.props.active}
+            showContextMenu={this.showTabContextMenu.bind(this)} items={tabItems} />
+          <div>
+            {this.props.files.map(f => <CodeEditor key={"editor-" + f.name} visible={f.name === this.props.active} source={f.contents} />)}
+          </div>
+        </SplitPane>
       </div>
     );
   }

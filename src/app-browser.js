@@ -1,21 +1,22 @@
- import __polyfill from "babel-polyfill";
+import __polyfill from "babel-polyfill";
 import isotropy from "isotropy";
 import reactPlugin from "isotropy-plugin-react";
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 import WorkspaceContainer from "./react/containers/workspace-container";
 import configureStore from './react/store/configure-store';
-import { getProject, getProjectFiles } from "./react/actions/project";
-import { openFile } from "./react/actions/editor";
+import * as projectActions from "./react/actions/project";
+import * as editorActions from "./react/actions/editor";
 import * as contextMenuActions from "./react/actions/context-menu";
 
 const store = configureStore({ project: {}, activeFiles: { files: [], lastUsed: [] }, contextMenu: { items: [] } });
 
-getProject("my-nodejam-sample")(store.dispatch, store.getState)
-  .then(() => getProjectFiles()(store.dispatch, store.getState))
-  .then(() => openFile("src/code/app.js")(store.dispatch, store.getState))
-  .catch(e => console.log(e.stack));
+window.__nodejam_ide = window.__nodejam_ide || {};
 
+projectActions.getProject("my-nodejam-sample")(store.dispatch, store.getState)
+  .then(() => projectActions.getProjectFiles()(store.dispatch, store.getState))
+  .then(() => editorActions.openFile("src/code/app.js")(store.dispatch, store.getState))
+  .catch(e => console.log(e.stack));
 
 class App extends Component {
   render() {
@@ -40,13 +41,31 @@ function onDocumentLoad() {
     }
   ];
 
+  const keyboardSettings = window.__nodejam_ide.keyboardSettings || {
+    closeActiveFile: { ctrlKey: true, altKey: true, keyCode: 87 }
+  };
+
   document.addEventListener("keydown", onKeyPress, false);
 
   function onKeyPress(e) {
-    const charCode = (typeof e.which == "number") ? e.which : e.keyCode
-    if (charCode === 27) {
+    if (checkKeycodes(e, { keyCode: 27 })) {
       contextMenuActions.closeContextMenu()(store.dispatch);
     }
+    if (checkKeycodes(e, keyboardSettings.closeActiveFile)) {
+      editorActions.closeActiveFile()(store.dispatch, store.getState);
+      event.preventDefault();
+    }
+  }
+
+  function checkKeycodes(e, _action) {
+    const action = {
+      ctrlKey: _action.ctrlKey || false,
+      altKey: _action.altKey || false,
+      shiftKey: _action.shiftKey || false,
+      keyCode: _action.keyCode
+    }
+    const charCode = (typeof e.which == "number") ? e.which : e.keyCode;
+    return (action.ctrlKey == e.ctrlKey && action.altKey == e.altKey && action.shiftKey == e.shiftKey && action.keyCode == charCode);
   }
 
   isotropy(apps, [reactPlugin], {}).catch((e) => console.log(e.stack));

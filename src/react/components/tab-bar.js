@@ -8,10 +8,11 @@ class Tab extends React.Component {
       width: this.props.title.length < 10 ? "96px" : "132px",
       float: "left",
       height: "32px",
-      paddingTop: "8px",
+      padding: "8px 0 0 0",
       marginRight: "1px",
       cursor: "pointer",
-      overflow: "hidden"
+      overflow: "hidden",
+      listStyle: "none"
     }
     if (this.props.active) {
       cssProps.backgroundColor = css.palette.bgHighlight;
@@ -53,7 +54,9 @@ class TabBar extends React.Component {
       background: css.palette.xlightBg,
       height: "32px",
       padding: 0,
-      margin: 0
+      margin: 0,
+      width: "100%",
+      overflow: "hidden"
     }
   }
 

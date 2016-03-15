@@ -26,6 +26,10 @@ export function closeFile(file) {
   return (dispatch) => dispatch({ type: "CLOSE_FILE", file });
 }
 
+export function closeActiveFile() {
+  return (dispatch, getState) => dispatch({ type: "CLOSE_FILE", file: getState().activeFiles.active });
+}
+
 export function closeAllFiles() {
   return (dispatch) => dispatch({ type: "CLOSE_ALL_FILES" });
 }

@@ -25,7 +25,25 @@
           ]
         },
         {
-          "name": "code",
+          "name": "html",
+          "type": "dir",
+          "contents": [
+            {
+              "name": "index.html",
+              "type": "file"
+            },
+            {
+              "name": "login.html",
+              "type": "file"
+            },
+            {
+              "name": "about.html",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "js",
           "type": "dir",
           "contents": [
             {

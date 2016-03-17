@@ -35,6 +35,18 @@ const mapDispatchToProps = (dispatch) => {
     },
     collapseDir: (name, parents) => {
       dispatch(projectActions.collapseDir(name, parents));
+    },
+    copyDirOrFile: (name, parents) => {
+      dispatch(projectActions.copyDirOrFile(name, parents));
+    },
+    cutDirOrFile: (name, parents) => {
+      dispatch(projectActions.cutDirOrFile(name, parents));
+    },
+    pasteDirOrFile: (name, parents) => {
+      dispatch(projectActions.pasteDirOrFile(name, parents));
+    },
+    deleteDirOrFile: (name, parents) => {
+      dispatch(projectActions.deleteDirOrFile(name, parents));
     }
   }
 }

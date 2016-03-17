@@ -37,9 +37,33 @@ export function getProjectFiles() {
   }
 }
 
-export function selectProjectItem(name, parents) {
+export function copyDirOrFile(name, parents, nodeType) {
   return (dispatch) => {
-    dispatch({ type: "SELECT_PROJECT_ITEM", name, parents });
+    dispatch({ type: 'SET_PROJECT_CLIPBOARD_ITEM', name, parents, nodeType, action: "COPY" });
+  }
+}
+
+export function cutDirOrFile(name, parents, nodeType) {
+  return (dispatch) => {
+    dispatch({ type: 'SET_PROJECT_CLIPBOARD_ITEM', name, parents, nodeType, action: "CUT" });
+  }
+}
+
+export function pasteDirOrFile(name, parents, nodeType) {
+  return (dispatch) => {
+    dispatch({ type: 'PASTE_PROJECT_CLIPBOARD_ITEM', name, parents, nodeType });
+  }
+}
+
+export function deleteDirOrFile(name, parents, nodeType) {
+  return (dispatch) => {
+    dispatch({ type: 'DELETE_PROJECT_ITEM', name, parents, nodeType });
+  }
+}
+
+export function selectProjectItem(name, parents, nodeType) {
+  return (dispatch) => {
+    dispatch({ type: "SELECT_PROJECT_ITEM", name, parents, nodeType });
   };
 }
 
@@ -49,14 +73,14 @@ export function unselectProjectItem() {
   };
 }
 
-export function expandDir(name, parents) {
+export function expandDir(name, parents, nodeType) {
   return (dispatch) => {
-    dispatch({ type: "EXPAND_DIR", name, parents });
+    dispatch({ type: "EXPAND_DIR", name, parents, nodeType });
   };
 }
 
-export function collapseDir(name, parents) {
+export function collapseDir(name, parents, nodeType) {
   return (dispatch) => {
-    dispatch({ type: "COLLAPSE_DIR", name, parents });
+    dispatch({ type: "COLLAPSE_DIR", name, parents, nodeType });
   };
 }

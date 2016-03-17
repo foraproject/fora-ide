@@ -14,7 +14,8 @@
     "isotropy-plugin-react": "*",
     "isotropy-plugin-static": "*",
     "isotropy-plugin-webapp": "*",
-    "isotropy-adapter-react-in-dom": "*"
+    "isotropy-adapter-react-in-dom": "*",
+    "merge-tree": "*"
   },
   "devDependencies": {
     "json-loader": "*",

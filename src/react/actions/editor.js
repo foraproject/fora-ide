@@ -1,4 +1,4 @@
-import { getFileByPath } from "../utils/project";
+import { getNodeByPath } from "../utils/project";
 import { getFiles as API_getFiles } from "../api/projects";
 
 export const LOAD_FILE = 'OPEN_FILE';
@@ -6,7 +6,7 @@ export const LOAD_FILE = 'OPEN_FILE';
 export function openFile(filePath) {
   return (dispatch, getState) => {
     const project = getState().project;
-    const _file = getFileByPath(filePath, project);
+    const _file = getNodeByPath(filePath, project);
     const file = Object.assign({}, _file, { path: filePath });
     if (file) {
       if (typeof file.contents === "string") {

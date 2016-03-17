@@ -69,9 +69,9 @@ class TreeNode extends React.Component {
       }
       case "dir": {
         if (this.props.node.collapsed) {
-          this.props.expandDir(this.props.node.name, this.props.parents);
+          this.props.expandDir(this.props.node.name, this.props.parents, this.props.node.type);
         } else {
-          this.props.collapseDir(this.props.node.name, this.props.parents);
+          this.props.collapseDir(this.props.node.name, this.props.parents, this.props.node.type);
         }
       }
     }
@@ -79,18 +79,20 @@ class TreeNode extends React.Component {
   }
 
   showContextMenu(event) {
+    const self = this;
+
     this.props.selectProjectItem(this.props.node.name, this.props.parents);
 
     this.props.showContextMenu([
       { title: "New File",  handler: () => self.props.newFile() },
       { title: "New Folder", handler: () => self.props.newDir() },
       {},
-      { title: "Rename",  handler: () => self.props.renameDirOrFile() },
-      { title: "Duplicate", handler: () => self.props.duplicateDirOrFile() },
-      { title: "Delete", handler: () => self.props.deleteDirOrFile() },
-      { title: "Copy", handler: () => self.props.copyDirOrFile() },
-      { title: "Paste", handler: () => self.props.pasteDirOrFile() },
-      { title: "Cut", handler: () => self.props.cutDirOrFile() },
+      { title: "Rename",  handler: () => self.props.renameDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) },
+      { title: "Duplicate", handler: () => self.props.duplicateDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) },
+      { title: "Delete", handler: () => self.props.deleteDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) },
+      { title: "Copy", handler: () => self.props.copyDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) },
+      { title: "Paste", handler: () => self.props.pasteDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) },
+      { title: "Cut", handler: () => self.props.cutDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) },
       {},
       { title: "Copy File Path",  handler: () => self.props.copyPath() }
     ], { left: event.pageX, top: event.pageY });

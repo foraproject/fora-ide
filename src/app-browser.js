@@ -72,7 +72,7 @@ function onDocumentLoad() {
 }
 
 if (document.readyState !== 'loading'){
-  fn();
+  onDocumentLoad();
 } else {
   document.addEventListener('DOMContentLoaded', onDocumentLoad);
 }

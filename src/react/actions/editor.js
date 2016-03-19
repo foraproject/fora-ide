@@ -23,17 +23,17 @@ export function openFile(filePath) {
 }
 
 export function closeFile(file) {
-  return (dispatch) => dispatch({ type: "CLOSE_FILE", file });
+  return { type: "CLOSE_FILE", file };
 }
 
 export function closeActiveFile() {
-  return (dispatch, getState) => dispatch({ type: "CLOSE_FILE", file: getState().activeFiles.active });
+  return { type: "CLOSE_FILE", file: getState().activeFiles.active };
 }
 
 export function closeAllFiles() {
-  return (dispatch) => dispatch({ type: "CLOSE_ALL_FILES" });
+  return { type: "CLOSE_ALL_FILES" };
 }
 
 export function closeOtherFiles(file) {
-  return (dispatch) => dispatch({ type: "CLOSE_OTHER_FILES", file });
+  return { type: "CLOSE_OTHER_FILES", file };
 }

@@ -24,29 +24,32 @@ const mapDispatchToProps = (dispatch) => {
     openFile: (filePath) => {
       dispatch(editorActions.openFile(filePath))
     },
-    showContextMenu: (items, position) => {
-      dispatch(menuActions.openContextMenu(items, position))
+    showContextMenu: (items, position, predicate) => {
+      dispatch(projectActions.showContextMenu(items, position, predicate))
     },
-    selectProjectItem: (name, parents) => {
-      dispatch(projectActions.selectProjectItem(name, parents))
+    selectProjectItem: (name, parents, nodeType, unselectPrevious = true) => {
+      dispatch(projectActions.selectProjectItem(name, parents, nodeType, unselectPrevious))
     },
-    expandDir: (name, parents) => {
-      dispatch(projectActions.expandDir(name, parents));
+    selectMultipleProjectItems: (name, parents, nodeType) => {
+      dispatch(projectActions.selectMultipleProjectItems(name, parents, nodeType))
     },
-    collapseDir: (name, parents) => {
-      dispatch(projectActions.collapseDir(name, parents));
+    expandDir: (name, parents, nodeType) => {
+      dispatch(projectActions.expandDir(name, parents, nodeType));
     },
-    copyDirOrFile: (name, parents) => {
-      dispatch(projectActions.copyDirOrFile(name, parents));
+    collapseDir: (name, parents, nodeType) => {
+      dispatch(projectActions.collapseDir(name, parents, nodeType));
     },
-    cutDirOrFile: (name, parents) => {
-      dispatch(projectActions.cutDirOrFile(name, parents));
+    copyDirOrFile: (name, parents, nodeType) => {
+      dispatch(projectActions.copyDirOrFile(name, parents, nodeType));
     },
-    pasteDirOrFile: (name, parents) => {
-      dispatch(projectActions.pasteDirOrFile(name, parents));
+    cutDirOrFile: (name, parents, nodeType) => {
+      dispatch(projectActions.cutDirOrFile(name, parents, nodeType));
     },
-    deleteDirOrFile: (name, parents) => {
-      dispatch(projectActions.deleteDirOrFile(name, parents));
+    pasteDirOrFile: (name, parents, nodeType) => {
+      dispatch(projectActions.pasteDirOrFile(name, parents, nodeType));
+    },
+    deleteDirOrFile: (name, parents, nodeType) => {
+      dispatch(projectActions.deleteDirOrFile(name, parents, nodeType));
     }
   }
 }

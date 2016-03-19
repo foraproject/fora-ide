@@ -1,3 +1,4 @@
+import { openContextMenu } from "./context-menu";
 import { getProject as API_getProject, getFiles as API_getFiles } from "../api/projects";
 
 export function getProject(project) {
@@ -38,20 +39,16 @@ export function getProjectFiles() {
 }
 
 export function copyDirOrFile(name, parents, nodeType) {
-  return (dispatch) => {
-    dispatch({ type: 'SET_PROJECT_CLIPBOARD_ITEM', name, parents, nodeType, action: "COPY" });
-  }
+  return { type: 'SET_PROJECT_CLIPBOARD_ITEMS', name, parents, nodeType, action: "COPY" };
 }
 
 export function cutDirOrFile(name, parents, nodeType) {
-  return (dispatch) => {
-    dispatch({ type: 'SET_PROJECT_CLIPBOARD_ITEM', name, parents, nodeType, action: "CUT" });
-  }
+  return { type: 'SET_PROJECT_CLIPBOARD_ITEMS', name, parents, nodeType, action: "CUT" };
 }
 
 export function pasteDirOrFile(name, parents, nodeType) {
   return (dispatch) => {
-    dispatch({ type: 'PASTE_PROJECT_CLIPBOARD_ITEM', name, parents, nodeType });
+    dispatch({ type: 'PASTE_PROJECT_CLIPBOARD_ITEMS', name, parents, nodeType });
   }
 }
 
@@ -61,26 +58,32 @@ export function deleteDirOrFile(name, parents, nodeType) {
   }
 }
 
-export function selectProjectItem(name, parents, nodeType) {
-  return (dispatch) => {
-    dispatch({ type: "SELECT_PROJECT_ITEM", name, parents, nodeType });
-  };
+export function selectProjectItem(name, parents, nodeType, unselectPrevious) {
+  return { type: "SELECT_PROJECT_ITEM", name, parents, nodeType, unselectPrevious };
+}
+
+
+export function selectMultipleProjectItems(name, parents, nodeType) {
+  return { type: "SELECT_MULTIPLE_PROJECT_ITEMS", name, parents, nodeType };
 }
 
 export function unselectProjectItem() {
-  return (dispatch) => {
-    dispatch({ type: "UNSELECT_PROJECT_ITEM" });
-  };
+  return { type: "UNSELECT_PROJECT_ITEM" };
 }
 
 export function expandDir(name, parents, nodeType) {
-  return (dispatch) => {
-    dispatch({ type: "EXPAND_DIR", name, parents, nodeType });
-  };
+  return { type: "EXPAND_DIR", name, parents, nodeType };
 }
 
 export function collapseDir(name, parents, nodeType) {
-  return (dispatch) => {
-    dispatch({ type: "COLLAPSE_DIR", name, parents, nodeType });
-  };
+  return { type: "COLLAPSE_DIR", name, parents, nodeType };
+}
+
+export function showContextMenu(items, position, predicate) {
+  return (dispatch, getState) => {
+    const { project } = getState();
+    if (!predicate || predicate(project)) {
+      dispatch(openContextMenu(items, position));
+    }
+  }
 }

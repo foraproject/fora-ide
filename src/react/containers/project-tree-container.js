@@ -50,6 +50,18 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteDirOrFile: (name, parents, nodeType) => {
       dispatch(projectActions.deleteDirOrFile(name, parents, nodeType));
+    },
+    dragProjectItem: (name, parents, nodeType) => {
+      dispatch(projectActions.dragProjectItem(name, parents, nodeType));
+    },
+    dragEnterProjectItem: (name, parents, nodeType) => {
+      dispatch(projectActions.dragEnterProjectItem(name, parents, nodeType));
+    },
+    clearProjectItemDropTarget: () => {
+      dispatch(projectActions.clearProjectItemDropTarget());
+    },
+    dropProjectItem: (name, parents, nodeType) => {
+      dispatch(projectActions.dropProjectItem(name, parents, nodeType));
     }
   }
 }

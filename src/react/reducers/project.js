@@ -149,6 +149,63 @@ function deleteProjectItem(state, action) {
   return projectUtils.deleteItem(action.parents.concat(action.name), state);
 }
 
+/*
+  Drag an item in the tree.
+*/
+function dragProjectItem(state, action) {
+  return Object.assign({}, state, { dragged: { name: action.name, parents: action.parents } });
+}
+
+/*
+  Happens when a dragged item moves over an element.
+  We should find the closest upstream directory and highlight it.
+  Also, the immediate parent is not a valid drop target. (That would be pointless.)
+*/
+function dragEnterProjectItem(state, action) {
+  const dragged = state.dragged;
+  if (dragged) {
+    const dropTarget = action.nodeType === "file" ?
+      { name: action.parents.slice(-1)[0], parents: action.parents.slice(0, -1) } :
+      { name: action.name, parents: action.parents || [] };
+
+    const itemPath = dragged.parents.concat(dragged.name);
+    const dropTargetPath = dropTarget.parents.concat(dropTarget.name);
+    //Check if dropTarget is immediate parent
+    if (!projectUtils.isChildOf(itemPath, dropTargetPath)
+      && !projectUtils.isDescendantOf(dropTargetPath, itemPath)) {
+      return Object.assign({}, state, { dropTarget });
+    }
+  }
+  return Object.assign({}, state, { dropTarget: null });
+}
+
+/*
+  Clear any highlighted Project Item drop targets
+*/
+function clearProjectItemDropTarget(state, action) {
+  return Object.assign({}, state, { dropTarget: null });
+}
+
+/*
+  Drop an item on a target.
+  This is the same as cutting.
+*/
+function dropProjectItem(state, action) {
+  const item = state.dragged;
+  if (item) {
+    const itemPath = item.parents.concat(item.name);
+    const node = projectUtils.getNodeByPathArray(itemPath, state);
+    if (node) {
+      const insertionPath = action.nodeType === "file" ? action.parents : action.parents.concat(action.name);
+      if (!projectUtils.isChildOf(itemPath, insertionPath) && !projectUtils.isDescendantOf(insertionPath, itemPath)) {
+        const changedState = projectUtils.insertItem(node, insertionPath, state);
+        return Object.assign({}, projectUtils.deleteItem(item.parents.concat(item.name), changedState), { dragged: null, dropTarget: null });
+      }
+    }
+  }
+  return Object.assign({}, state, { dragged: null, dropTarget: null });
+}
+
 export default function(state = {}, action) {
   switch (action.type) {
     case "GET_PROJECT":
@@ -182,6 +239,18 @@ export default function(state = {}, action) {
     }
     case "DELETE_PROJECT_ITEM": {
       return deleteProjectItem(state, action);
+    }
+    case "DRAG_PROJECT_ITEM": {
+      return dragProjectItem(state, action);
+    }
+    case "DRAG_ENTER_PROJECT_ITEM": {
+      return dragEnterProjectItem(state, action);
+    }
+    case "CLEAR_PROJECT_ITEM_DROP_TARGET": {
+      return clearProjectItemDropTarget(state, action);
+    }
+    case "DROP_PROJECT_ITEM": {
+      return dropProjectItem(state, action);
     }
     default:
       return state;

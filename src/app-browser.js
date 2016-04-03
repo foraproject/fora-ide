@@ -8,6 +8,8 @@ import configureStore from './react/store/configure-store';
 import * as projectActions from "./react/actions/project";
 import * as editorActions from "./react/actions/editor";
 import * as contextMenuActions from "./react/actions/context-menu";
+import setupKeyboardShortcuts from "./react/dom-native/keyboard-shortcuts";
+import setupDragDrop from "./react/dom-native/drag-drop";
 
 const store = configureStore({ project: {}, activeFiles: { files: [], lastUsed: [] }, contextMenu: { items: [] } });
 
@@ -41,32 +43,8 @@ function onDocumentLoad() {
     }
   ];
 
-  const keyboardSettings = window.__nodejam_ide.keyboardSettings || {
-    closeActiveFile: { ctrlKey: true, altKey: true, keyCode: 87 }
-  };
-
-  document.addEventListener("keydown", onKeyPress, false);
-
-  function onKeyPress(e) {
-    if (checkKeycodes(e, { keyCode: 27 })) {
-      contextMenuActions.closeContextMenu()(store.dispatch);
-    }
-    if (checkKeycodes(e, keyboardSettings.closeActiveFile)) {
-      editorActions.closeActiveFile()(store.dispatch, store.getState);
-      event.preventDefault();
-    }
-  }
-
-  function checkKeycodes(e, _action) {
-    const action = {
-      ctrlKey: _action.ctrlKey || false,
-      altKey: _action.altKey || false,
-      shiftKey: _action.shiftKey || false,
-      keyCode: _action.keyCode
-    }
-    const charCode = (typeof e.which == "number") ? e.which : e.keyCode;
-    return (action.ctrlKey == e.ctrlKey && action.altKey == e.altKey && action.shiftKey == e.shiftKey && action.keyCode == charCode);
-  }
+  setupKeyboardShortcuts(document, store);
+  setupDragDrop(document, store);
 
   isotropy(apps, [reactPlugin], {}).catch((e) => console.log(e.stack));
 }

@@ -79,6 +79,22 @@ export function collapseDir(name, parents, nodeType) {
   return { type: "COLLAPSE_DIR", name, parents, nodeType };
 }
 
+export function dragProjectItem(name, parents, nodeType) {
+  return { type: "DRAG_PROJECT_ITEM", name, parents, nodeType };
+}
+
+export function dragEnterProjectItem(name, parents, nodeType) {
+  return { type: "DRAG_ENTER_PROJECT_ITEM", name, parents, nodeType };
+}
+
+export function clearProjectItemDropTarget() {
+  return { type: "CLEAR_PROJECT_ITEM_DROP_TARGET" };
+}
+
+export function dropProjectItem(name, parents, nodeType) {
+  return { type: "DROP_PROJECT_ITEM", name, parents, nodeType };
+}
+
 export function showContextMenu(items, position, predicate) {
   return (dispatch, getState) => {
     const { project } = getState();

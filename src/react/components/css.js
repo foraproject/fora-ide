@@ -1,3 +1,4 @@
+/* @flow */
 export default {
   palette: {
     bg: "#f6f6f6",

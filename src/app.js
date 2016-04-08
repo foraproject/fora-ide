@@ -1,3 +1,4 @@
+/* @flow */
 import __polyfill from "babel-polyfill";
 import isotropy from "isotropy";
 import webappPlugin from "isotropy-plugin-webapp";

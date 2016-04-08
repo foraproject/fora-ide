@@ -1,3 +1,4 @@
+/* @flow */
 import __polyfill from "babel-polyfill";
 import isotropy from "isotropy";
 import reactPlugin from "isotropy-plugin-react";
@@ -9,7 +10,7 @@ import * as projectActions from "./react/actions/project";
 import * as editorActions from "./react/actions/editor";
 import * as contextMenuActions from "./react/actions/context-menu";
 import setupKeyboardShortcuts from "./react/dom-native/keyboard-shortcuts";
-import setupDragDrop from "./react/dom-native/drag-drop";
+import setupDragDrop from "./react/dom-native/dragdrop";
 
 const store = configureStore({ project: {}, activeFiles: { files: [], lastUsed: [] }, contextMenu: { items: [] } });
 

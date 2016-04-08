@@ -4,6 +4,7 @@
     "start": "./build.sh && node dist/app.js"
   },
   "dependencies": {
+    "babel-polyfill": "*",
     "isotropy": "*",
     "isotropy-in-dom": "*",
     "isotropy-plugin-react": "*",
@@ -20,7 +21,6 @@
   },
   "devDependencies": {
     "json-loader": "*",
-    "babel-polyfill": "*",
     "babel-preset-es2015": "*",
     "babel-preset-react": "*",
     "babel-preset-stage-2": "*",

@@ -1,3 +1,4 @@
+/* @flow */
 import { getNodeByPath } from "../utils/project";
 import { getFiles as API_getFiles } from "../api/projects";
 

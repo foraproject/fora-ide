@@ -1,3 +1,4 @@
+/* @flow */
 export function openContextMenu(items, position) {
   return { type: 'OPEN_CONTEXT_MENU', items, position };
 }

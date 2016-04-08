@@ -1,27 +1,46 @@
-export default function (document, store) {
-  function checkKeycodes(e, _action) {
-    const action = {
-      ctrlKey: _action.ctrlKey || false,
-      altKey: _action.altKey || false,
-      shiftKey: _action.shiftKey || false,
-      keyCode: _action.keyCode
-    }
-    const charCode = (typeof e.which == "number") ? e.which : e.keyCode;
-    return (action.ctrlKey == e.ctrlKey && action.altKey == e.altKey && action.shiftKey == e.shiftKey && action.keyCode == charCode);
-  }
+/* @flow */
+import * as editorActions from "../actions/editor";
+import * as contextMenuActions from "../actions/context-menu";
 
-  const keyboardSettings = window.__nodejam_ide.keyboardSettings || {
-    closeActiveFile: { ctrlKey: true, altKey: true, keyCode: 87 }
-  };
+function checkKeycodes(e, keyCombo) {
+  const charCode = (typeof e.which == "number") ? e.which : e.keyCode;
+  const match = (
+    (keyCombo.ctrlKey || false) === e.ctrlKey &&
+    (keyCombo.altKey || false) === e.altKey &&
+    (keyCombo.shiftKey || false) === e.shiftKey &&
+    (keyCombo.metaKey || false) === e.metaKey &&
+    (keyCombo.keyCode || false) === charCode
+  );
+  return match;
+}
+
+export default function (document, store) {
+  const keyboardSettings = getKeyboardSettings();
 
   function onKeyPress(e) {
-    if (checkKeycodes(e, { keyCode: 27 })) {
-      contextMenuActions.closeContextMenu()(store.dispatch);
+    const setting = keyboardSettings.find(setting => setting.keys.some(keyCombo => checkKeycodes(e, keyCombo)));
+    if (setting) {
+      setting.actions.map(a => a());
     }
-    if (checkKeycodes(e, keyboardSettings.closeActiveFile)) {
-      editorActions.closeActiveFile()(store.dispatch, store.getState);
-      event.preventDefault();
-    }
+  }
+
+  function getKeyboardSettings() {
+    const keyboardSettings = window.__nodejam_ide.keyboardSettings || {};
+    return [
+      {
+        keys: keyboardSettings.closeActiveFile || [{ ctrlKey: true, altKey: true, keyCode: 87 }, { metaKey: true, altKey: true, keyCode: 87 }],
+        actions: [
+          () => {
+            editorActions.closeActiveFile()(store.dispatch, store.getState);
+            event.preventDefault();
+          }
+        ]
+      },
+      {
+        keys: [{ keyCode: 27 }],
+        actions: [() => store.dispatch(contextMenuActions.closeContextMenu())]
+      }
+    ];
   }
 
   document.addEventListener("keydown", onKeyPress, false);

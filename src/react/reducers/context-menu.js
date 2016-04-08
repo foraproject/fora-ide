@@ -1,3 +1,4 @@
+/* @flow */
 function openContextMenu(state, action) {
   return Object.assign({}, state, { items: action.items, position: action.position });
 }

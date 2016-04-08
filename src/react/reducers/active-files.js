@@ -1,3 +1,4 @@
+/* @flow */
 function openFile(state, action) {
   const files = (!state.files.some(f => f.name === action.file.name)) ?
     state.files.concat(action.file) :

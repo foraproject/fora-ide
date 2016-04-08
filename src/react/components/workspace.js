@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 
 import MainMenu from "./main-menu";
@@ -5,6 +6,7 @@ import SplitPane from "react-split-pane";
 import ProjectTreeContainer from "../containers/project-tree-container";
 import EditorContainer from "../containers/editor-container";
 import ContextMenuContainer from "../containers/context-menu-container";
+import ModalContainer from "../containers/modal-container";
 import css from "./css";
 
 const cssFix = `
@@ -27,6 +29,7 @@ class Workspace extends React.Component {
           </SplitPane>
         </SplitPane>
         <ContextMenuContainer />
+        <ModalContainer />
       </div>
     );
   }

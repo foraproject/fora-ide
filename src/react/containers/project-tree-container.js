@@ -1,9 +1,10 @@
+/* @flow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ProjectTree from '../components/project-tree';
 import * as editorActions from "../actions/editor.js";
 import * as projectActions from "../actions/project.js";
-import * as menuActions from "../actions/context-menu.js";
+import * as modalActions from "../actions/modal.js";
 
 class ProjectTreeContainer extends Component {
   render() {
@@ -27,17 +28,23 @@ const mapDispatchToProps = (dispatch) => {
     showContextMenu: (items, position, predicate) => {
       dispatch(projectActions.showContextMenu(items, position, predicate))
     },
-    selectProjectItem: (name, parents, nodeType, unselectPrevious = true) => {
-      dispatch(projectActions.selectProjectItem(name, parents, nodeType, unselectPrevious))
+    selectDirOrFile: (name, parents, nodeType, unselectPrevious = true) => {
+      dispatch(projectActions.selectDirOrFile(name, parents, nodeType, unselectPrevious))
     },
-    selectMultipleProjectItems: (name, parents, nodeType) => {
-      dispatch(projectActions.selectMultipleProjectItems(name, parents, nodeType))
+    selectMultipleDirsOrFiles: (name, parents, nodeType) => {
+      dispatch(projectActions.selectMultipleDirsOrFiles(name, parents, nodeType))
     },
     expandDir: (name, parents, nodeType) => {
       dispatch(projectActions.expandDir(name, parents, nodeType));
     },
     collapseDir: (name, parents, nodeType) => {
       dispatch(projectActions.collapseDir(name, parents, nodeType));
+    },
+    openModal: (children) => {
+      dispatch(modalActions.openModal(children));
+    },
+    renameDirOrFile: (name, parents, nodeType) => {
+      dispatch(projectActions.renameDirOrFile(name, parents, nodeType));
     },
     copyDirOrFile: (name, parents, nodeType) => {
       dispatch(projectActions.copyDirOrFile(name, parents, nodeType));
@@ -51,17 +58,17 @@ const mapDispatchToProps = (dispatch) => {
     deleteDirOrFile: (name, parents, nodeType) => {
       dispatch(projectActions.deleteDirOrFile(name, parents, nodeType));
     },
-    dragProjectItem: (name, parents, nodeType) => {
-      dispatch(projectActions.dragProjectItem(name, parents, nodeType));
+    dragDirOrFile: (name, parents, nodeType) => {
+      dispatch(projectActions.dragDirOrFile(name, parents, nodeType));
     },
-    dragEnterProjectItem: (name, parents, nodeType) => {
-      dispatch(projectActions.dragEnterProjectItem(name, parents, nodeType));
+    dragEnterDirOrFile: (name, parents, nodeType) => {
+      dispatch(projectActions.dragEnterDirOrFile(name, parents, nodeType));
     },
-    clearProjectItemDropTarget: () => {
-      dispatch(projectActions.clearProjectItemDropTarget());
+    clearDirOrFileDropTarget: () => {
+      dispatch(projectActions.clearDirOrFileDropTarget());
     },
-    dropProjectItem: (name, parents, nodeType) => {
-      dispatch(projectActions.dropProjectItem(name, parents, nodeType));
+    dropDirOrFile: (name, parents, nodeType) => {
+      dispatch(projectActions.dropDirOrFile(name, parents, nodeType));
     }
   }
 }

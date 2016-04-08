@@ -1,3 +1,4 @@
+/* @flow */
 import { openContextMenu } from "./context-menu";
 import { getProject as API_getProject, getFiles as API_getFiles } from "../api/projects";
 
@@ -38,6 +39,10 @@ export function getProjectFiles() {
   }
 }
 
+export function renameDirOrFile(name, parents, nodeType) {
+  return { type: 'RENAME_DIR_OR_FILE', name, parents, nodeType };
+}
+
 export function copyDirOrFile(name, parents, nodeType) {
   return { type: 'SET_PROJECT_CLIPBOARD_ITEMS', name, parents, nodeType, action: "COPY" };
 }
@@ -54,21 +59,21 @@ export function pasteDirOrFile(name, parents, nodeType) {
 
 export function deleteDirOrFile(name, parents, nodeType) {
   return (dispatch) => {
-    dispatch({ type: 'DELETE_PROJECT_ITEM', name, parents, nodeType });
+    dispatch({ type: 'DELETE_DIR_OR_FILE', name, parents, nodeType });
   }
 }
 
-export function selectProjectItem(name, parents, nodeType, unselectPrevious) {
-  return { type: "SELECT_PROJECT_ITEM", name, parents, nodeType, unselectPrevious };
+export function selectDirOrFile(name, parents, nodeType, unselectPrevious) {
+  return { type: "SELECT_DIR_OR_FILE", name, parents, nodeType, unselectPrevious };
 }
 
 
-export function selectMultipleProjectItems(name, parents, nodeType) {
-  return { type: "SELECT_MULTIPLE_PROJECT_ITEMS", name, parents, nodeType };
+export function selectMultipleDirsOrFiles(name, parents, nodeType) {
+  return { type: "SELECT_MULTIPLE_DIR_OR_FILES", name, parents, nodeType };
 }
 
-export function unselectProjectItem() {
-  return { type: "UNSELECT_PROJECT_ITEM" };
+export function unselectDirOrFile() {
+  return { type: "UNSELECT_DIR_OR_FILE" };
 }
 
 export function expandDir(name, parents, nodeType) {
@@ -79,20 +84,20 @@ export function collapseDir(name, parents, nodeType) {
   return { type: "COLLAPSE_DIR", name, parents, nodeType };
 }
 
-export function dragProjectItem(name, parents, nodeType) {
-  return { type: "DRAG_PROJECT_ITEM", name, parents, nodeType };
+export function dragDirOrFile(name, parents, nodeType) {
+  return { type: "DRAG_DIR_OR_FILE", name, parents, nodeType };
 }
 
-export function dragEnterProjectItem(name, parents, nodeType) {
-  return { type: "DRAG_ENTER_PROJECT_ITEM", name, parents, nodeType };
+export function dragEnterDirOrFile(name, parents, nodeType) {
+  return { type: "DRAG_ENTER_DIR_OR_FILE", name, parents, nodeType };
 }
 
-export function clearProjectItemDropTarget() {
-  return { type: "CLEAR_PROJECT_ITEM_DROP_TARGET" };
+export function clearDirOrFileDropTarget() {
+  return { type: "CLEAR_DIR_OR_FILE_DROP_TARGET" };
 }
 
-export function dropProjectItem(name, parents, nodeType) {
-  return { type: "DROP_PROJECT_ITEM", name, parents, nodeType };
+export function dropDirOrFile(name, parents, nodeType) {
+  return { type: "DROP_DIR_OR_FILE", name, parents, nodeType };
 }
 
 export function showContextMenu(items, position, predicate) {

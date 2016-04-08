@@ -1,3 +1,4 @@
+/* @flow */
 import R from "ramda";
 import mergeTree from "merge-tree";
 import * as projectUtils from "../utils/project";
@@ -33,7 +34,7 @@ function getFiles(state, action) {
 /*
   Select an item, or add to an existing selection if unselectPrevious is false
 */
-function selectProjectItem(state, action) {
+function selectDirOrFile(state, action) {
   const item = { name: action.name, parents: action.parents };
 
   /*
@@ -54,7 +55,7 @@ function selectProjectItem(state, action) {
   - If exists, select everything from last clicked sibling to this node (in both directions)
   - If there is no sibling node, this click is invalid. Do nothing.
 */
-function selectMultipleProjectItems(state, action) {
+function selectMultipleDirsOrFiles(state, action) {
   const selected = state.selected || [];
   const item = { name: action.name, parents: action.parents };
 
@@ -79,7 +80,7 @@ function selectMultipleProjectItems(state, action) {
 /*
   Unselect all items
 */
-function unselectProjectItem(state, action) {
+function unselectDirOrFile(state, action) {
   return Object.assign({}, state, { selected: [] });
 }
 
@@ -105,6 +106,13 @@ function collapseDir(collapsed, state, action) {
   The item from clipBoard
 */
 function getClipboardItem(state, action) {
+
+}
+
+/*
+  Rename a file or directory
+*/
+function renameDirOrFile(state, action) {
 
 }
 
@@ -145,14 +153,14 @@ function pasteClipboardItems(_state, action) {
 /*
   Delete a project item
 */
-function deleteProjectItem(state, action) {
+function deleteDirOrFile(state, action) {
   return projectUtils.deleteItem(action.parents.concat(action.name), state);
 }
 
 /*
   Drag an item in the tree.
 */
-function dragProjectItem(state, action) {
+function dragDirOrFile(state, action) {
   return Object.assign({}, state, { dragged: { name: action.name, parents: action.parents } });
 }
 
@@ -161,7 +169,7 @@ function dragProjectItem(state, action) {
   We should find the closest upstream directory and highlight it.
   Also, the immediate parent is not a valid drop target. (That would be pointless.)
 */
-function dragEnterProjectItem(state, action) {
+function dragEnterDirOrFile(state, action) {
   const dragged = state.dragged;
   if (dragged) {
     const dropTarget = action.nodeType === "file" ?
@@ -182,7 +190,7 @@ function dragEnterProjectItem(state, action) {
 /*
   Clear any highlighted Project Item drop targets
 */
-function clearProjectItemDropTarget(state, action) {
+function clearDirOrFileDropTarget(state, action) {
   return Object.assign({}, state, { dropTarget: null });
 }
 
@@ -190,7 +198,7 @@ function clearProjectItemDropTarget(state, action) {
   Drop an item on a target.
   This is the same as cutting.
 */
-function dropProjectItem(state, action) {
+function dropDirOrFile(state, action) {
   const item = state.dragged;
   if (item) {
     const itemPath = item.parents.concat(item.name);
@@ -213,20 +221,23 @@ export default function(state = {}, action) {
     case "GET_FILES": {
       return getFiles(state, action);
     }
-    case "SELECT_PROJECT_ITEM": {
-      return selectProjectItem(state, action);
+    case "SELECT_DIR_OR_FILE": {
+      return selectDirOrFile(state, action);
     }
-    case "SELECT_MULTIPLE_PROJECT_ITEMS": {
-      return selectMultipleProjectItems(state, action);
+    case "SELECT_MULTIPLE_DIR_OR_FILES": {
+      return selectMultipleDirsOrFiles(state, action);
     }
-    case "UNSELECT_PROJECT_ITEM": {
-      return unselectProjectItem(state, action);
+    case "UNSELECT_DIR_OR_FILE": {
+      return unselectDirOrFile(state, action);
     }
     case "EXPAND_DIR": {
       return collapseDir(false, state, action);
     }
     case "COLLAPSE_DIR": {
       return collapseDir(true, state, action);
+    }
+    case "RENAME_DIR_OR_FILE": {
+      return renameDirOrFile(state, action);
     }
     case "GET_PROJECT_CLIPBOARD_ITEM": {
       return getClipboardItem(state, action);
@@ -237,20 +248,20 @@ export default function(state = {}, action) {
     case "PASTE_PROJECT_CLIPBOARD_ITEMS": {
       return pasteClipboardItems(state, action);
     }
-    case "DELETE_PROJECT_ITEM": {
-      return deleteProjectItem(state, action);
+    case "DELETE_DIR_OR_FILE": {
+      return deleteDirOrFile(state, action);
     }
-    case "DRAG_PROJECT_ITEM": {
-      return dragProjectItem(state, action);
+    case "DRAG_DIR_OR_FILE": {
+      return dragDirOrFile(state, action);
     }
-    case "DRAG_ENTER_PROJECT_ITEM": {
-      return dragEnterProjectItem(state, action);
+    case "DRAG_ENTER_DIR_OR_FILE": {
+      return dragEnterDirOrFile(state, action);
     }
-    case "CLEAR_PROJECT_ITEM_DROP_TARGET": {
-      return clearProjectItemDropTarget(state, action);
+    case "CLEAR_DIR_OR_FILE_DROP_TARGET": {
+      return clearDirOrFileDropTarget(state, action);
     }
-    case "DROP_PROJECT_ITEM": {
-      return dropProjectItem(state, action);
+    case "DROP_DIR_OR_FILE": {
+      return dropDirOrFile(state, action);
     }
     default:
       return state;

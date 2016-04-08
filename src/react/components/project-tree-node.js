@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import R from "ramda";
 import css from "./css";
@@ -86,12 +87,27 @@ export default class TreeNode extends React.Component {
     }
   }
 
+  renameDirOrFile() {
+    const onKeyPress = (event) => {
+      console.log(event);
+    }
+    this.props.openModal(
+      <div>
+        <p>
+          Enter a new path for the file<br />
+          <input type="text" onKeyPress={onKeyPress} />
+        </p>
+      </div>
+    );
+    //this.props.renameDirOrFile(this.props.node.name, this.props.parents, this.props.node.type)
+  }
+
   onClick(event) {
     event.stopPropagation();
     if (!event.shiftKey) {
-      this.props.selectProjectItem(this.props.node.name, this.props.parents, this.props.node.type, !event.ctrlKey);
+      this.props.selectDirOrFile(this.props.node.name, this.props.parents, this.props.node.type, !event.ctrlKey);
     } else {
-      this.props.selectMultipleProjectItems(this.props.node.name, this.props.parents, this.props.node.type);
+      this.props.selectMultipleDirsOrFiles(this.props.node.name, this.props.parents, this.props.node.type);
     }
 
     if (!event.ctrlKey && !event.shiftKey) {
@@ -121,12 +137,12 @@ export default class TreeNode extends React.Component {
     */
     const selected = this.props.project.selected || [];
     if (!selected.some(s => this.props.node.name === s.name && R.equals(this.props.parents, s.parents))) {
-      this.props.selectProjectItem(this.props.node.name, this.props.parents, this.props.node.type);
+      this.props.selectDirOrFile(this.props.node.name, this.props.parents, this.props.node.type);
     }
 
     const newFile = { title: "New File",  handler: () => self.props.newFile() };
     const newFolder = { title: "New Folder", handler: () => self.props.newDir() };
-    const rename = { title: "Rename",  handler: () => self.props.renameDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) };
+    const rename = { title: "Rename",  handler: this.renameDirOrFile.bind(this) };
     const duplicate = { title: "Duplicate", handler: () => self.props.duplicateDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) };
     const deleteItem = { title: "Delete", handler: () => self.props.deleteDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) };
     const copyItem = { title: "Copy", handler: () => self.props.copyDirOrFile(self.props.node.name, self.props.parents, self.props.node.type) };
@@ -143,7 +159,7 @@ export default class TreeNode extends React.Component {
         copyFilePath
       ],
       { left: event.pageX, top: event.pageY },
-      proj => { console.log(proj); return proj.selected.length <= 1}
+      proj => { return proj.selected.length <= 1}
     );
 
     this.props.showContextMenu(
@@ -163,18 +179,18 @@ export default class TreeNode extends React.Component {
   onDragStart(event) {
     event.stopPropagation();
     event.dataTransfer.setData('text/plain', 'This text may be dragged');
-    this.props.dragProjectItem(this.props.node.name, this.props.parents, this.props.node.type);
+    this.props.dragDirOrFile(this.props.node.name, this.props.parents, this.props.node.type);
   }
 
   onDragEnter(event) {
     event.stopPropagation();
-    this.props.dragEnterProjectItem(this.props.node.name, this.props.parents, this.props.node.type);
+    this.props.dragEnterDirOrFile(this.props.node.name, this.props.parents, this.props.node.type);
   }
 
   onDrop(event) {
     event.stopPropagation();
-    this.props.clearProjectItemDropTarget();
-    this.props.dropProjectItem(this.props.node.name, this.props.parents, this.props.node.type);
+    this.props.clearDirOrFileDropTarget();
+    this.props.dropDirOrFile(this.props.node.name, this.props.parents, this.props.node.type);
   }
 
   render() {

@@ -1,3 +1,4 @@
+/* @flow */
 import React from "react";
 import SplitPane from "react-split-pane";
 import TabBar from "./tab-bar";

@@ -35,27 +35,4 @@ class Workspace extends React.Component {
   }
 }
 
-
-// class Workspace extends React.Component {
-//   render() {
-//     return(
-//       <div>
-//         <style dangerouslySetInnerHTML={{ __html: cssFix }}></style>
-//         <div style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
-//           <div style={{ flex: "0"}}>
-//             <MainMenu />
-//           </div>
-//           <div style={{ flex: "1", flexDirection: "column", display: "flex" }}>
-//             <SplitPane id="editor-container" split="vertical" minSize="200" defaultSize="240">
-//               <ProjectTreeContainer />
-//               <EditorContainer />
-//             </SplitPane>
-//           </div>
-//         </div>
-//         <ContextMenuContainer />
-//       </div>
-//     );
-//   }
-// }
-
 export default Workspace;

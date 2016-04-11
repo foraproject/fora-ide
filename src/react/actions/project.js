@@ -39,41 +39,41 @@ export function getProjectFiles() {
   }
 }
 
-export function renameDirOrFile(name, parents, nodeType) {
-  return { type: 'RENAME_DIR_OR_FILE', name, parents, nodeType };
+export function renameNode(name, parents, nodeType) {
+  return { type: 'RENAME_NODE', name, parents, nodeType };
 }
 
-export function copyDirOrFile(name, parents, nodeType) {
+export function copyNode(name, parents, nodeType) {
   return { type: 'SET_PROJECT_CLIPBOARD_ITEMS', name, parents, nodeType, action: "COPY" };
 }
 
-export function cutDirOrFile(name, parents, nodeType) {
+export function cutNode(name, parents, nodeType) {
   return { type: 'SET_PROJECT_CLIPBOARD_ITEMS', name, parents, nodeType, action: "CUT" };
 }
 
-export function pasteDirOrFile(name, parents, nodeType) {
+export function pasteNode(name, parents, nodeType) {
   return (dispatch) => {
     dispatch({ type: 'PASTE_PROJECT_CLIPBOARD_ITEMS', name, parents, nodeType });
   }
 }
 
-export function deleteDirOrFile(name, parents, nodeType) {
+export function deleteNode(name, parents, nodeType) {
   return (dispatch) => {
-    dispatch({ type: 'DELETE_DIR_OR_FILE', name, parents, nodeType });
+    dispatch({ type: 'DELETE_NODE', name, parents, nodeType });
   }
 }
 
-export function selectDirOrFile(name, parents, nodeType, unselectPrevious) {
-  return { type: "SELECT_DIR_OR_FILE", name, parents, nodeType, unselectPrevious };
+export function selectNode(name, parents, nodeType, unselectPrevious) {
+  return { type: "SELECT_NODE", name, parents, nodeType, unselectPrevious };
 }
 
 
-export function selectMultipleDirsOrFiles(name, parents, nodeType) {
-  return { type: "SELECT_MULTIPLE_DIR_OR_FILES", name, parents, nodeType };
+export function selectMultipleNodes(name, parents, nodeType) {
+  return { type: "SELECT_MULTIPLE_NODES", name, parents, nodeType };
 }
 
-export function unselectDirOrFile() {
-  return { type: "UNSELECT_DIR_OR_FILE" };
+export function unselectNode() {
+  return { type: "UNSELECT_NODE" };
 }
 
 export function expandDir(name, parents, nodeType) {
@@ -84,20 +84,20 @@ export function collapseDir(name, parents, nodeType) {
   return { type: "COLLAPSE_DIR", name, parents, nodeType };
 }
 
-export function dragDirOrFile(name, parents, nodeType) {
-  return { type: "DRAG_DIR_OR_FILE", name, parents, nodeType };
+export function dragNode(name, parents, nodeType) {
+  return { type: "DRAG_NODE", name, parents, nodeType };
 }
 
-export function dragEnterDirOrFile(name, parents, nodeType) {
-  return { type: "DRAG_ENTER_DIR_OR_FILE", name, parents, nodeType };
+export function dragEnterNode(name, parents, nodeType) {
+  return { type: "DRAG_ENTER_NODE", name, parents, nodeType };
 }
 
-export function clearDirOrFileDropTarget() {
-  return { type: "CLEAR_DIR_OR_FILE_DROP_TARGET" };
+export function clearNodeDropTarget() {
+  return { type: "CLEAR_NODE_DROP_TARGET" };
 }
 
-export function dropDirOrFile(name, parents, nodeType) {
-  return { type: "DROP_DIR_OR_FILE", name, parents, nodeType };
+export function dropNode(name, parents, nodeType) {
+  return { type: "DROP_NODE", name, parents, nodeType };
 }
 
 export function showContextMenu(items, position, predicate) {

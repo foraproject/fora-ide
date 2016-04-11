@@ -28,11 +28,11 @@ const mapDispatchToProps = (dispatch) => {
     showContextMenu: (items, position, predicate) => {
       dispatch(projectActions.showContextMenu(items, position, predicate))
     },
-    selectDirOrFile: (name, parents, nodeType, unselectPrevious = true) => {
-      dispatch(projectActions.selectDirOrFile(name, parents, nodeType, unselectPrevious))
+    selectNode: (name, parents, nodeType, unselectPrevious = true) => {
+      dispatch(projectActions.selectNode(name, parents, nodeType, unselectPrevious))
     },
-    selectMultipleDirsOrFiles: (name, parents, nodeType) => {
-      dispatch(projectActions.selectMultipleDirsOrFiles(name, parents, nodeType))
+    selectMultipleNodes: (name, parents, nodeType) => {
+      dispatch(projectActions.selectMultipleNodes(name, parents, nodeType))
     },
     expandDir: (name, parents, nodeType) => {
       dispatch(projectActions.expandDir(name, parents, nodeType));
@@ -43,32 +43,32 @@ const mapDispatchToProps = (dispatch) => {
     openModal: (children) => {
       dispatch(modalActions.openModal(children));
     },
-    renameDirOrFile: (name, parents, nodeType) => {
-      dispatch(projectActions.renameDirOrFile(name, parents, nodeType));
+    renameNode: (name, parents, nodeType) => {
+      dispatch(projectActions.renameNode(name, parents, nodeType));
     },
-    copyDirOrFile: (name, parents, nodeType) => {
-      dispatch(projectActions.copyDirOrFile(name, parents, nodeType));
+    copyNode: (name, parents, nodeType) => {
+      dispatch(projectActions.copyNode(name, parents, nodeType));
     },
-    cutDirOrFile: (name, parents, nodeType) => {
-      dispatch(projectActions.cutDirOrFile(name, parents, nodeType));
+    cutNode: (name, parents, nodeType) => {
+      dispatch(projectActions.cutNode(name, parents, nodeType));
     },
-    pasteDirOrFile: (name, parents, nodeType) => {
-      dispatch(projectActions.pasteDirOrFile(name, parents, nodeType));
+    pasteNode: (name, parents, nodeType) => {
+      dispatch(projectActions.pasteNode(name, parents, nodeType));
     },
-    deleteDirOrFile: (name, parents, nodeType) => {
-      dispatch(projectActions.deleteDirOrFile(name, parents, nodeType));
+    deleteNode: (name, parents, nodeType) => {
+      dispatch(projectActions.deleteNode(name, parents, nodeType));
     },
-    dragDirOrFile: (name, parents, nodeType) => {
-      dispatch(projectActions.dragDirOrFile(name, parents, nodeType));
+    dragNode: (name, parents, nodeType) => {
+      dispatch(projectActions.dragNode(name, parents, nodeType));
     },
-    dragEnterDirOrFile: (name, parents, nodeType) => {
-      dispatch(projectActions.dragEnterDirOrFile(name, parents, nodeType));
+    dragEnterNode: (name, parents, nodeType) => {
+      dispatch(projectActions.dragEnterNode(name, parents, nodeType));
     },
-    clearDirOrFileDropTarget: () => {
-      dispatch(projectActions.clearDirOrFileDropTarget());
+    clearNodeDropTarget: () => {
+      dispatch(projectActions.clearNodeDropTarget());
     },
-    dropDirOrFile: (name, parents, nodeType) => {
-      dispatch(projectActions.dropDirOrFile(name, parents, nodeType));
+    dropNode: (name, parents, nodeType) => {
+      dispatch(projectActions.dropNode(name, parents, nodeType));
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "author": "Fora Project<hackers@justfora.com>",
+  "author": "NodeJam<jeswin@nodejam.com>",
   "scripts": {
     "start": "./build.sh && node dist/app.js"
   },

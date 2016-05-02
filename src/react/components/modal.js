@@ -29,15 +29,13 @@ export default class Modal extends React.Component {
   }
 
   onClick() {
-    this.props.onClick();
-    this.props.closeContextMenu();
+    this.props.closeModal();
   }
 
   render() {
-    console.log("Hello...");
     return (
       <div>
-        <div onClick={this.props.closeContextMenu} style={this.getOverlayStyle()}>
+        <div onClick={this.props.closeModal.bind(this)} style={this.getOverlayStyle()}>
         </div>
         <div style={this.getStyle()}>
           {this.props.children}

@@ -43,7 +43,10 @@ const mapDispatchToProps = (dispatch) => {
     openModal: (children) => {
       dispatch(modalActions.openModal(children));
     },
-    renameNode: (name, parents, nodeType) => {
+    closeModal: (children) => {
+      dispatch(modalActions.closeModal());
+    },
+    renameNode: (newName, name, parents, nodeType) => {
       dispatch(projectActions.renameNode(name, parents, nodeType));
     },
     copyNode: (name, parents, nodeType) => {

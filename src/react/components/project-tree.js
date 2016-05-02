@@ -2,7 +2,6 @@
 import React from "react";
 import R from "ramda";
 import css from "./css";
-import { DragSource } from 'react-dnd';
 import TreeNode from "./project-tree-node";
 
 class ProjectTree extends React.Component {

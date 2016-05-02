@@ -2,7 +2,6 @@
 import React from "react";
 import R from "ramda";
 import css from "./css";
-import { DragSource, DropTarget } from 'react-dnd';
 import RenameNodeModal from "./modals/rename-node";
 
 export default class TreeNode extends React.Component {
@@ -128,7 +127,9 @@ export default class TreeNode extends React.Component {
 
     const newFile = { title: "New File",  handler: () => self.props.newFile() };
     const newFolder = { title: "New Folder", handler: () => self.props.newDir() };
-    const rename = { title: "Rename",  handler: () => self.props.openModal(<RenameNodeModal />) };
+    const rename = { title: "Rename",  handler: () => self.props.openModal(
+      <RenameNodeModal closeModal={this.props.closeModal} renameNode={this.props.renameNode} node={self.props.node} />
+    ) };
     const duplicate = { title: "Duplicate", handler: () => self.props.duplicateNode(self.props.node.name, self.props.parents, self.props.node.type) };
     const deleteItem = { title: "Delete", handler: () => self.props.deleteNode(self.props.node.name, self.props.parents, self.props.node.type) };
     const copyItem = { title: "Copy", handler: () => self.props.copyNode(self.props.node.name, self.props.parents, self.props.node.type) };

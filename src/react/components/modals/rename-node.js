@@ -9,9 +9,11 @@ export default class RenameNodeModal extends React.Component {
   }
 
   onKeyPress(event) {
-    console.log(event);
+    if (event.which == 13 || event.keyCode == 13) {
+      this.props.renameNode(event.target.value, this.props.node.name, this.props.parents, this.props.node.type)
+      this.props.closeModal();
+    }
   }
-
 
   render() {
     return(

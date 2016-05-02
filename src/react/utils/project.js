@@ -74,6 +74,28 @@ function getUniquelyNamedNodes(items, dir) {
 }
 
 /*
+  Rename an item.
+*/
+export function renameItem(item, parents, project) {
+  return mergeTree(
+    project,
+    "contents",
+    [{ parents: parents.slice(0, -1), target: parents.slice(-1)[0] }],
+    (dir, name) => dir.name === name,
+    (dir, target) => {
+      if (dir.name === target) {
+        const _items = getUniquelyNamedNodes(items, dir);
+        let contents = dir.contents.slice(0).concat(_items);
+        const dirs = contents.filter(c => c.type === "dir");
+        const files = contents.filter(c => c.type === "file");
+        contents = dirs.sort(sorter).concat(files.sort(sorter));
+        return Object.assign({}, dir, { contents })
+      }
+    }
+  );
+}
+
+/*
   Insert an array of items into specified parent.
   Parents is an array ['a', 'b', 'c'] representing a/b/c
 */
